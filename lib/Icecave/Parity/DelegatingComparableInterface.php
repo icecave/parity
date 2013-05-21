@@ -1,6 +1,8 @@
 <?php
 namespace Icecave\Parity;
 
+use Icecave\Parity\Comparator\ComparatorInterface;
+
 interface DelegatingComparableInterface
 {
     /**
@@ -15,10 +17,10 @@ interface DelegatingComparableInterface
      * +--------------------+---------------+
      *
      * @param mixed               $value      The value to compare.
-     * @param ComparitorInterface $comparator The comparator being used to perform the comparison.
+     * @param ComparatorInterface $comparator The comparator being used to perform the comparison.
      *
      * @return integer                          The result of the comparison.
      * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
-    public function delegatingCompare($value, ComparitorInterface $comparitor);
+    public function delegatingCompare($value, ComparatorInterface $comparitor);
 }

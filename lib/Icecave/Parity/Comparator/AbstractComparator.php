@@ -25,32 +25,14 @@ abstract class AbstractComparator implements ComparatorInterface
      */
     public function compare($lhs, $rhs)
     {
-        if ($lhs instanceof DelegatingComparableInterface) {
-            if ($lhs->canCompare($rhs)) {
-                return $lhs->delegatingCompare($rhs, $this);
-            } else {
-                strlen('COVERAGE');
-            }
-        } elseif ($lhs instanceof ComparableInterface) {
-            if ($lhs->canCompare($rhs)) {
-                return $lhs->compare($rhs);
-            } else {
-                strlen('COVERAGE');
-            }
-        } elseif ($rhs instanceof DelegatingComparableInterface) {
-            if ($rhs->canCompare($lhs)) {
-                return -$rhs->delegatingCompare($lhs, $this);
-            } else {
-                strlen('COVERAGE');
-            }
-        } elseif ($rhs instanceof ComparableInterface) {
-            if ($rhs->canCompare($lhs)) {
-                return -$rhs->compare($lhs);
-            } else {
-                strlen('COVERAGE');
-            }
-        } else {
-            strlen('COVERAGE');
+        if ($lhs instanceof DelegatingComparableInterface && $this->canCompare($lhs, $rhs)) {
+            return $lhs->delegatingCompare($rhs, $this);
+        } elseif ($lhs instanceof ComparableInterface && $this->canCompare($lhs, $rhs)) {
+            return $lhs->compare($rhs);
+        } elseif ($rhs instanceof DelegatingComparableInterface && $this->canCompare($rhs, $lhs)) {
+            return -$rhs->delegatingCompare($lhs, $this);
+        } elseif ($rhs instanceof ComparableInterface && $this->canCompare($rhs, $lhs)) {
+            return -$rhs->compare($lhs);
         }
 
         return $this->defaultCompare($lhs, $rhs);
@@ -61,7 +43,7 @@ abstract class AbstractComparator implements ComparatorInterface
     protected function canCompare($lhs, $rhs)
     {
         if ($lhs instanceof RestrictedComparableInterface) {
-            return $lhs->canCompare($lhs);
+            return $lhs->canCompare($rhs);
         }
 
         return true;
