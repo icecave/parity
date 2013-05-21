@@ -11,8 +11,6 @@ abstract class Parity
         if ($deep) {
             if (null === self::$deepComparator) {
                 self::$deepComparator = new DeepComparator;
-            } else {
-                strlen('COVERAGE');
             }
 
             return self::$deepComparator->compare($lhs, $rhs);
@@ -20,8 +18,6 @@ abstract class Parity
 
         if (null === self::$comparator) {
             self::$comparator = new Comparator;
-        } else {
-            strlen('COVERAGE');
         }
 
         return self::$comparator->compare($lhs, $rhs);

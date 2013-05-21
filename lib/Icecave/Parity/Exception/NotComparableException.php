@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Parity\Exception;
 
+use Exception;
 use Icecave\Repr\Repr;
 use LogicException;
 
@@ -10,9 +11,9 @@ class NotComparableException extends LogicException
     {
         parent::__construct(
             sprintf(
-                'Can compare %s to %s.',
-                Repr::repr($rhs),
-                Repr::repr($lhs)
+                'Can not compare %s to %s.',
+                Repr::repr($lhs),
+                Repr::repr($rhs)
             ),
             0,
             $previous

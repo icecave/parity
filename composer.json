@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "icecave/repr": "~1"
     },
     "require-dev": {
         "eloquent/typhoon": "~0.9",
