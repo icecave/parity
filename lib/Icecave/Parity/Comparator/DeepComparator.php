@@ -1,7 +1,7 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-class Comparator extends AbstractComparator
+class DeepComparator extends AbstractComparator
 {
     public function defaultCompare($lhs, $rhs)
     {

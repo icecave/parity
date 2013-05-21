@@ -1,7 +1,7 @@
 <?php
 namespace Icecave\Parity;
 
-interface RestrictedComparableInterface extends ComparableInterface
+interface RestrictedComparableInterface
 {
     /**
      * Check if $this is able to be compared to another value.
