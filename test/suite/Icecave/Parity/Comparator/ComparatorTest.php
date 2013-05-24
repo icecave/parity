@@ -12,8 +12,8 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultCompare()
     {
-        $this->assertLessThan(0, $this->comparator->compare(-1, 0));
         $this->assertSame(0, $this->comparator->compare(0, 0));
+        $this->assertLessThan(0, $this->comparator->compare(-1, 0));
         $this->assertGreaterThan(0, $this->comparator->compare(1, 0));
     }
 }
