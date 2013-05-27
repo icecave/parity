@@ -237,6 +237,30 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $this->comparator->compare($obj4, $obj3));
     }
 
+    public function testDefaultCompareWithObjectsHavingUndeclaredProperties()
+    {
+        $obj1 = new ParentObject(111, 'foo');
+        $obj2 = new ParentObject(222, 'bar');
+
+        $obj1->jazzUndeclared = 'jazz1';
+        $obj2->jazzUndeclared = 'jazz2';
+
+        $obj3 = new ChildObject(333, 'foo');
+        $obj4 = new ChildObject(444, 'bar');
+
+        $obj3->jazzUndeclared = 'jazz3';
+        $obj4->jazzUndeclared = 'jazz4';
+
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj3, $obj3));
+
+        $this->assertLessThan(0, $this->comparator->compare($obj1, $obj2));
+        $this->assertGreaterThan(0, $this->comparator->compare($obj2, $obj1));
+
+        $this->assertLessThan(0, $this->comparator->compare($obj3, $obj4));
+        $this->assertGreaterThan(0, $this->comparator->compare($obj4, $obj3));
+    }
+
     public function testDefaultCompareWithObjectsHavingSharedInnerObject()
     {
         $shared = new ParentObject('foo', 'bar');
@@ -257,7 +281,7 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $this->comparator->compare($obj4, $obj3));
     }
 
-    public function testDefaultCompareWithSimpleObjectsRecursive()
+    public function testDefaultCompareWithSimpleObjectsRecursion()
     {
         $obj1 = new stdClass;
         $obj1->foo = $obj1;
@@ -265,15 +289,34 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
         $obj2 = new stdClass;
         $obj2->foo = $obj2;
-        $obj2->bar = 1;
-
-        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
-        $this->assertSame(0, $this->comparator->compare($obj1, $obj2));
-
         $obj2->bar = 2;
 
-        $this->assertLessThan(0, $this->comparator->compare($obj1, $obj2));
-        $this->assertGreaterThan(0, $this->comparator->compare($obj2, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
+        // Infinite recursive objects do not yet fully support deep comparision.
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->comparator->compare($obj1, $obj2);
+    }
+
+    public function testDefaultCompareWithSimpleObjectsDoubleRecursion()
+    {
+        $obj1 = new stdClass;
+        $obj1->recurse = new stdClass;
+        $obj1->recurse->recurse = $obj1;
+        $obj1->value = 1;
+
+        $obj2 = new stdClass;
+        $obj2->recurse = new stdClass;
+        $obj2->recurse->recurse = $obj2;
+        $obj2->value = 2;
+
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
+        // Infinite recursive objects do not yet fully support deep comparision.
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        $this->comparator->compare($obj1, $obj2);
     }
 
     public function testDefaultCompareWithSimpleObjectsCrossReference()
@@ -284,10 +327,10 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $obj1->foo = $obj2;
         $obj2->foo = $obj1;
 
-        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
-        $this->assertSame(0, $this->comparator->compare($obj1, $obj2));
-
         $obj2->bar = 2;
+
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
 
         $this->assertLessThan(0, $this->comparator->compare($obj1, $obj2));
         $this->assertGreaterThan(0, $this->comparator->compare($obj2, $obj1));

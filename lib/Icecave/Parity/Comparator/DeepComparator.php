@@ -1,6 +1,7 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
+use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionObject;
 
@@ -53,11 +54,11 @@ class DeepComparator extends AbstractComparator
 
     /**
      * @param array $lhs
-     * @param mixed $rhs
+     * @param array $rhs
      *
      * @return integer The result of the comparison.
      */
-    protected function compareArray(array $lhs, $rhs)
+    protected function compareArray(array $lhs, array $rhs)
     {
         TypeCheck::get(__CLASS__)->compareArray(func_get_args());
 
@@ -94,7 +95,7 @@ class DeepComparator extends AbstractComparator
 
     /**
      * @param object $lhs
-     * @param mixed  $rhs
+     * @param object $rhs
      *
      * @return integer The result of the comparison.
      */
@@ -102,21 +103,32 @@ class DeepComparator extends AbstractComparator
     {
         TypeCheck::get(__CLASS__)->compareObject(func_get_args());
 
+        if ($lhs === $rhs) {
+            return 0;
+        }
+
         $diff = strcmp(get_class($lhs), get_class($rhs));
         if ($diff !== 0) {
             return $diff;
         }
 
         $stackKey = $this->objectComparisonStackKey($lhs, $rhs);
-        if (array_key_exists($stackKey, $this->objectComparisonStack)) {
-            return 0;
-        }
-        $this->objectComparisonStack[$stackKey] = true;
+        if (!array_key_exists($stackKey, $this->objectComparisonStack)) {
+            // Add the key to the comparision stack in advance to catch infinitely recursive comparision.
+            $this->objectComparisonStack[$stackKey] = null;
 
-        return $this->compareArray(
-            $this->objectProperties($lhs),
-            $this->objectProperties($rhs)
-        );
+            $this->objectComparisonStack[$stackKey] = $this->compareArray(
+                $this->objectProperties($lhs),
+                $this->objectProperties($rhs)
+            );
+        }
+
+        // Handle infinite recursive compare...
+        if ($this->objectComparisonStack[$stackKey] === null) {
+            throw new NotComparableException($lhs, $rhs);
+        }
+
+        return $this->objectComparisonStack[$stackKey];
     }
 
     /**

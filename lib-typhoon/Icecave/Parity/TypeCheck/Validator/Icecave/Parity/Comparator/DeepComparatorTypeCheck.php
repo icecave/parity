@@ -43,7 +43,7 @@ class DeepComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidato
             if ($argumentCount < 1) {
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'array');
             }
-            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
+            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'array');
         } elseif ($argumentCount > 2) {
             throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
@@ -56,7 +56,7 @@ class DeepComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidato
             if ($argumentCount < 1) {
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'object');
             }
-            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
+            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'object');
         } elseif ($argumentCount > 2) {
             throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
@@ -66,6 +66,15 @@ class DeepComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidato
                 'lhs',
                 0,
                 $arguments[0],
+                'object'
+            );
+        }
+        $value = $arguments[1];
+        if (!\is_object($value)) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
+                'rhs',
+                1,
+                $arguments[1],
                 'object'
             );
         }
