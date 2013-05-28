@@ -1,8 +1,15 @@
 <?php
 namespace Icecave\Parity;
 
+use Icecave\Parity\TypeCheck\TypeCheck;
+
 abstract class AbstractComparable implements ExtendedComparableInterface
 {
+    public function __construct()
+    {
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
+    }
+
     /**
      * @param mixed $value The value to compare.
      *
@@ -10,6 +17,8 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isEqualTo($value)
     {
+        TypeCheck::get(__CLASS__)->isEqualTo(func_get_args());
+
         return $this->compare($value) === 0;
     }
 
@@ -20,6 +29,8 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isNotEqualTo($value)
     {
+        TypeCheck::get(__CLASS__)->isNotEqualTo(func_get_args());
+
         return $this->compare($value) !== 0;
     }
 
@@ -30,6 +41,8 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isLessThan($value)
     {
+        TypeCheck::get(__CLASS__)->isLessThan(func_get_args());
+
         return $this->compare($value) < 0;
     }
 
@@ -40,6 +53,8 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isGreaterThan($value)
     {
+        TypeCheck::get(__CLASS__)->isGreaterThan(func_get_args());
+
         return $this->compare($value) > 0;
     }
 
@@ -50,6 +65,8 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isLessThanOrEqualTo($value)
     {
+        TypeCheck::get(__CLASS__)->isLessThanOrEqualTo(func_get_args());
+
         return $this->compare($value) <= 0;
     }
 
@@ -60,6 +77,10 @@ abstract class AbstractComparable implements ExtendedComparableInterface
      */
     public function isGreaterThanOrEqualTo($value)
     {
+        TypeCheck::get(__CLASS__)->isGreaterThanOrEqualTo(func_get_args());
+
         return $this->compare($value) >= 0;
     }
+
+    private $typeCheck;
 }
