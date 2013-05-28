@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\Exception\NotComparableException;
 use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionObject;
 
@@ -24,7 +23,7 @@ class DeepComparator extends AbstractComparator
     {
         TypeCheck::get(__CLASS__)->defaultCompare(func_get_args());
 
-        $this->objectComparisonStack = array();
+        $this->visitedObjects = array();
 
         return $this->compareValue($lhs, $rhs);
     }
@@ -62,10 +61,9 @@ class DeepComparator extends AbstractComparator
     {
         TypeCheck::get(__CLASS__)->compareArray(func_get_args());
 
-        if (count($lhs) < count($rhs)) {
-            return -1;
-        } elseif (count($lhs) > count($rhs)) {
-            return +1;
+        $diff = count($lhs) - count($rhs);
+        if ($diff !== 0) {
+            return $diff;
         }
 
         reset($lhs);
@@ -112,23 +110,10 @@ class DeepComparator extends AbstractComparator
             return $diff;
         }
 
-        $stackKey = $this->objectComparisonStackKey($lhs, $rhs);
-        if (!array_key_exists($stackKey, $this->objectComparisonStack)) {
-            // Add the key to the comparision stack in advance to catch infinitely recursive comparision.
-            $this->objectComparisonStack[$stackKey] = null;
-
-            $this->objectComparisonStack[$stackKey] = $this->compareArray(
-                $this->objectProperties($lhs),
-                $this->objectProperties($rhs)
-            );
-        }
-
-        // Handle infinite recursive compare...
-        if ($this->objectComparisonStack[$stackKey] === null) {
-            throw new NotComparableException($lhs, $rhs);
-        }
-
-        return $this->objectComparisonStack[$stackKey];
+        return $this->compareArray(
+            $this->objectProperties($lhs),
+            $this->objectProperties($rhs)
+        );
     }
 
     /**
@@ -139,6 +124,14 @@ class DeepComparator extends AbstractComparator
     protected function objectProperties($object)
     {
         TypeCheck::get(__CLASS__)->objectProperties(func_get_args());
+
+        $hashKey = spl_object_hash($object);
+        if (in_array($hashKey, $this->visitedObjects)) {
+            // To deal with infinite recursion just return the object hash for the properties.
+            return array(get_class($object) => $hashKey);
+        } else {
+            $this->visitedObjects[] = $hashKey;
+        }
 
         $properties = array();
         $reflector = new ReflectionObject($object);
@@ -165,25 +158,6 @@ class DeepComparator extends AbstractComparator
         return $properties;
     }
 
-    /**
-     * @param object $lhs
-     * @param object $rhs
-     *
-     * @return string
-     */
-    protected function objectComparisonStackKey($lhs, $rhs)
-    {
-        TypeCheck::get(__CLASS__)->objectComparisonStackKey(func_get_args());
-
-        $ids = array(
-            spl_object_hash($lhs),
-            spl_object_hash($rhs)
-        );
-        sort($ids);
-
-        return implode('.', $ids);
-    }
-
     private $typeCheck;
-    private $objectComparisonStack;
+    private $visitedObjects;
 }
