@@ -22,6 +22,10 @@ class Comparator extends AbstractComparator
     {
         TypeCheck::get(__CLASS__)->defaultCompare(func_get_args());
 
+        if (gettype($lhs) !== gettype($rhs)) {
+            return strcmp(gettype($lhs), gettype($rhs));
+        }
+
         if ($lhs < $rhs) {
             return -1;
         } elseif ($lhs > $rhs) {
