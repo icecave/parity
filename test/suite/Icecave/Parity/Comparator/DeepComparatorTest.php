@@ -13,21 +13,75 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $this->comparator = new DeepComparator;
     }
 
+    /**
+     * @dataProvider differentTypesCompare
+     */
+    public function testDefaultCompareDifferentTypes($less, $greater)
+    {
+        $this->assertLessThan(0, $this->comparator->compare($less, $greater));
+        $this->assertGreaterThan(0, $this->comparator->compare($greater, $less));
+    }
+
+    public function differentTypesCompare()
+    {
+        $stdClassOne = new stdClass;
+        $stdClassOne->foo = 1;
+
+        $leftTypes = array(
+            'Null' => null,
+            'Boolean False'     => false,
+            'Boolean True'      => true,
+            'Integer Zero'      => 0,
+            'Integer One'       => 1,
+            'Double Zero'       => 0.0,
+            'Double One'        => 1.0,
+            'String Empty'      => '',
+            'String Space'      => ' ',
+            'String Zero'       => '0',
+            'Array Empty'       => array(),
+            'Array Zero'        => array(0),
+            'Array One'         => array(1),
+            'StdClass Empty'    => new stdClass,
+            'StdClass One'      => $stdClassOne,
+            'Class Empty'       => new ParentObject(null, null),
+            'Class Zero'        => new ParentObject(0, 0),
+            'Class One'         => new ParentObject(1, 1),
+        );
+        $rightTypes = $leftTypes;
+
+        $compare = array();
+        foreach ($leftTypes as $leftName => $leftValue) {
+            foreach ($rightTypes as $rightName => $rightValue) {
+                $leftTypeName = gettype($leftValue);
+                $rightTypeName = gettype($rightValue);
+                if ($leftTypeName === $rightTypeName) {
+                    // Skip same types for this test.
+                    continue;
+                }
+                $description = $leftName . ' and ' . $rightName;
+
+                // Type names will be used for the compare.
+                if (strcmp($leftTypeName, $rightTypeName) < 0) {
+                    $compare[$description] = array($leftValue, $rightValue);
+                } else {
+                    $compare[$description] = array($rightValue, $leftValue);
+                }
+            }
+        }
+
+        return $compare;
+    }
+
+    public function testDefaultCompare()
+    {
+        $this->assertSame(0, $this->comparator->compare(0, 0));
+        $this->assertLessThan(0, $this->comparator->compare(-1, 0));
+        $this->assertGreaterThan(0, $this->comparator->compare(1, 0));
+    }
+
     public function testDefaultCompareNull()
     {
         $this->assertSame(0, $this->comparator->compare(null, null));
-
-        $this->assertSame(0, $this->comparator->compare(null, 0));
-        $this->assertSame(0, $this->comparator->compare(0, null));
-
-        $this->assertSame(0, $this->comparator->compare(null, false));
-        $this->assertSame(0, $this->comparator->compare(false, null));
-
-        $this->assertSame(0, $this->comparator->compare(null, ''));
-        $this->assertSame(0, $this->comparator->compare('', null));
-
-        $this->assertLessThan(0, $this->comparator->compare(null, '0'));
-        $this->assertGreaterThan(0, $this->comparator->compare('0', null));
     }
 
     public function testDefaultCompareBoolean()
@@ -95,8 +149,11 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $array = array('foo');
         $nonArray = 123;
 
-        $this->assertLessThan(0, $this->comparator->compare($nonArray, $array));
-        $this->assertGreaterThan(0, $this->comparator->compare($array, $nonArray));
+        $this->assertSame(0, $this->comparator->compare($array, $array));
+        $this->assertSame(0, $this->comparator->compare($nonArray, $nonArray));
+
+        $this->assertLessThan(0, $this->comparator->compare($array, $nonArray));
+        $this->assertGreaterThan(0, $this->comparator->compare($nonArray, $array));
     }
 
     public function testDefaultCompareWithArrays()
@@ -144,8 +201,14 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultCompareWithObjectAndNonObjectScalar()
     {
-        $this->setExpectedException('ErrorException', 'Object of class stdClass could not be converted to int');
-        $this->comparator->compare(new stdClass, 123);
+        $object = new stdClass;
+        $scalar = 123;
+
+        $this->assertSame(0, $this->comparator->compare($object, $object));
+        $this->assertSame(0, $this->comparator->compare($scalar, $scalar));
+
+        $this->assertLessThan(0, $this->comparator->compare($scalar, $object));
+        $this->assertGreaterThan(0, $this->comparator->compare($object, $scalar));
     }
 
     public function testDefaultCompareWithObjectAndNonObjectArray()
@@ -153,13 +216,23 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $object = new stdClass;
         $array = array();
 
-        $this->assertGreaterThan(0, $this->comparator->compare($object, $array));
+        $this->assertSame(0, $this->comparator->compare($object, $object));
+        $this->assertSame(0, $this->comparator->compare($array, $array));
+
         $this->assertLessThan(0, $this->comparator->compare($array, $object));
+        $this->assertGreaterThan(0, $this->comparator->compare($object, $array));
     }
 
     public function testDefaultCompareWithObjectsDifferentClassTypes()
     {
-        $this->assertGreaterThan(0, $this->comparator->compare(new stdClass, new ParentObject(0, 0)));
+        $obj1 = new stdClass;
+        $obj2 = new ParentObject(0, 0);
+
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
+        $this->assertLessThan(0, $this->comparator->compare($obj2, $obj1));
+        $this->assertGreaterThan(0, $this->comparator->compare($obj1, $obj2));
     }
 
     public function testDefaultCompareWithObjectsDifferentInnerClassTypes()
@@ -170,12 +243,23 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $obj2 = new stdClass;
         $obj2->foo = new ParentObject(0, 0);
 
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
+        $this->assertLessThan(0, $this->comparator->compare($obj2, $obj1));
         $this->assertGreaterThan(0, $this->comparator->compare($obj1, $obj2));
     }
 
     public function testDefaultCompareWithObjectsParentAndDerived()
     {
-        $this->assertGreaterThan(0, $this->comparator->compare(new ParentObject(0, 0), new ChildObject(0, 0)));
+        $obj1 = new ParentObject(0, 0);
+        $obj2 = new ChildObject(0, 0);
+
+        $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
+        $this->assertLessThan(0, $this->comparator->compare($obj2, $obj1));
+        $this->assertGreaterThan(0, $this->comparator->compare($obj1, $obj2));
     }
 
     public function testDefaultCompareWithSimpleObjects()
@@ -215,6 +299,8 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $obj2->prop = 1;
 
         $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
+        $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
+
         $this->assertLessThan(0, $this->comparator->compare($obj2, $obj1));
         $this->assertGreaterThan(0, $this->comparator->compare($obj1, $obj2));
     }
