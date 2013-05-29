@@ -38,6 +38,10 @@ class DeepComparator extends AbstractComparator
     {
         TypeCheck::get(__CLASS__)->compareValue(func_get_args());
 
+        if (gettype($lhs) !== gettype($rhs)) {
+            return strcmp(gettype($lhs), gettype($rhs));
+        }
+
         if (is_array($lhs) && is_array($rhs)) {
             return $this->compareArray($lhs, $rhs);
         } elseif (is_object($lhs) && is_object($rhs)) {
