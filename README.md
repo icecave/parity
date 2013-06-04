@@ -6,8 +6,8 @@
 **Parity** is a deep comparison library for PHP.
 
 The PHP language does not provide a way to reliably and strictly compare arbitrary values. The built-in comparison
-operators (`==`, `<`, `>`, etc) perform (sometimes misleading) type juggling, and the strict equality operator (`===`)
-can only compare objects by identity.
+operators perform often undesired type juggling, and the strict equality operator (`===`) can only compare objects by
+identity.
 
 A third option is required to strictly compare objects by their content. **Parity** aims to fill this void by using
 [reflection](http://php.net/reflection) to recurse over objects and arrays comparing their elements in a strict fashion.
