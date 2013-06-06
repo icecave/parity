@@ -1,7 +1,7 @@
 # Parity
 
 [![Build Status]](http://travis-ci.org/IcecaveStudios/parity)
-[![Test Coverage]](http://icecave.com.au/parity/artifacts/tests/coverage)
+[![Test Coverage]](http://icecavestudios.github.io/parity/artifacts/tests/coverage)
 
 **Parity** is a deep comparison library for PHP.
 

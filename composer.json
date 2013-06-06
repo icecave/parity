@@ -1,6 +1,6 @@
 {
     "name": "icecave/parity",
-    "description": "A comparator library for PHP.",
+    "description": "A customizable deep comparison library.",
     "keywords": ["compare", "comparison", "equal", "equality", "less", "greater", "sort", "sorting"],
     "homepage": "https://github.com/IcecaveStudios/parity",
     "license": "MIT",
