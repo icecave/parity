@@ -33,14 +33,20 @@ abstract class AbstractComparator implements ComparatorInterface
     {
         TypeCheck::get(__CLASS__)->compare(func_get_args());
 
-        if ($lhs instanceof DelegatingComparableInterface && $this->canCompare($lhs, $rhs)) {
-            return $lhs->delegatingCompare($rhs, $this);
-        } elseif ($lhs instanceof ComparableInterface && $this->canCompare($lhs, $rhs)) {
-            return $lhs->compare($rhs);
-        } elseif ($rhs instanceof DelegatingComparableInterface && $this->canCompare($rhs, $lhs)) {
-            return -$rhs->delegatingCompare($lhs, $this);
-        } elseif ($rhs instanceof ComparableInterface && $this->canCompare($rhs, $lhs)) {
-            return -$rhs->compare($lhs);
+        if ($this->canCompare($lhs, $rhs)) {
+            if ($lhs instanceof DelegatingComparableInterface) {
+                return $lhs->delegatingCompare($rhs, $this);
+            } elseif ($lhs instanceof ComparableInterface) {
+                return $lhs->compare($rhs);
+            }
+        }
+
+        if ($this->canCompare($rhs, $lhs)) {
+            if ($rhs instanceof DelegatingComparableInterface) {
+                return -$rhs->delegatingCompare($lhs, $this);
+            } elseif ($rhs instanceof ComparableInterface) {
+                return -$rhs->compare($lhs);
+            }
         }
 
         return $this->defaultCompare($lhs, $rhs);
