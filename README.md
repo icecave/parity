@@ -1,7 +1,8 @@
 # Parity
 
-[![Build Status]](http://travis-ci.org/IcecaveStudios/parity)
-[![Test Coverage]](http://icecavestudios.github.io/parity/artifacts/tests/coverage)
+[![Build Status]](https://travis-ci.org/IcecaveStudios/parity)
+[![Test Coverage]](https://coveralls.io/r/IcecaveStudios/parity?branch=develop)
+[![SemVer]](http://semver.org)
 
 **Parity** is a deep comparison library for PHP.
 
@@ -36,5 +37,6 @@ or [ExtendedComparableInterface](lib/Icecave/Parity/ExtendedComparableInterface.
 the extended comparison methods.
 
 <!-- references -->
-[Build Status]: https://raw.github.com/IcecaveStudios/parity/gh-pages/artifacts/images/icecave/regular/build-status.png
-[Test Coverage]: https://raw.github.com/IcecaveStudios/parity/gh-pages/artifacts/images/icecave/regular/coverage.png
+[Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
+[Test Coverage]: https://coveralls.io/repos/IcecaveStudios/parity/badge.png?branch=develop
+[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=0.1.0&color=yellow
