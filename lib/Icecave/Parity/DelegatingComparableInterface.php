@@ -22,5 +22,5 @@ interface DelegatingComparableInterface
      * @return integer                          The result of the comparison.
      * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
-    public function delegatingCompare($value, ComparatorInterface $comparitor);
+    public function delegatingCompare($value, ComparatorInterface $comparator);
 }
