@@ -55,19 +55,20 @@ assert(Parity::isGreaterThan(1, 2) === false);
 assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
 ```
 
-## Implementation Resolution
+## Algorithm Resolution
 
-The following algorithm is used by `Parity::compare($A, $B)` to determine which comparison implementation to use:
+The following process is used by `Parity::compare($A, $B)` to determine which comparison algorithm to use:
 
-1. If $A is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
-2. If $A is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`, use `$A->compare($B)`
-3. If $A is [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$A->compare(...)` was implemented in `get_type($B)`, use `$A->compare($B)`
+If `$A` is ...
+1. ... [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
+2. ... [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`, use `$A->compare($B)`
+3. ... [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$A->compare(...)` is implemented in `gettype($B)`, use `$A->compare($B)`
 
-If none of the above conditions are true, the comparison is tried in reverse with $A on the right hand side and $B on
-the left; the result is also inverted. If no comparison can be made, comparison falls back to a strictly-typed deep
-comparison.
+If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
+the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
+deep comparison.
 
-When compariing scalar types, integers and doubles (PHP's only true numeric types) are compared as though they were the
+When comparing scalar types, integers and doubles (PHP's only true numeric types) are treated as though they were the
 same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings are **not** compared in this way.
 
 <!-- references -->
