@@ -59,10 +59,9 @@ assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
 
 The following process is used by `Parity::compare($A, $B)` to determine which comparison algorithm to use:
 
-If `$A` is ...
-1. ... [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
-2. ... [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`, use `$A->compare($B)`
-3. ... [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$A->compare(...)` is implemented in `gettype($B)`, use `$A->compare($B)`
+1. If `$A` is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
+2. If `$A` is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`, use `$A->compare($B)`
+3. If `$A` is [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$A->compare(...)` is implemented in `gettype($B)`, use `$A->compare($B)`
 
 If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
 the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
