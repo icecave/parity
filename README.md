@@ -24,6 +24,8 @@ The **Parity** comparison engine is used via static methods on the `Parity` faca
 and are guaranteed to produce a deterministic comparison result. Some basic examples are shown below using integers.
 
 ```php
+use Icecave\Parity\Parity;
+
 assert(Parity::compare(1, 2) < 0);
 assert(Parity::isEqualTo(1, 2) === false);
 assert(Parity::isNotEqualTo(1, 2) === true);
