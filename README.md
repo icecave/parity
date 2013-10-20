@@ -86,4 +86,4 @@ same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings ar
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
 [Test Coverage]: https://coveralls.io/repos/IcecaveStudios/parity/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=0.1.0&color=yellow
+[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=1.0.0-alpha.1&color=yellow
