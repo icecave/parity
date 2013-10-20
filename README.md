@@ -18,6 +18,22 @@ A third option is required to strictly compare objects by their content. **Parit
 * Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
 * Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
 
+## Example
+
+The **Parity** comparison engine is used via static methods on the `Parity` facade class. These methods accept any types
+and are guaranteed to produce a deterministic comparison result. Some basic examples are shown below using integers.
+
+```php
+assert(Parity::compare(1, 2) < 0);
+assert(Parity::isEqualTo(1, 2) === false);
+assert(Parity::isNotEqualTo(1, 2) === true);
+assert(Parity::isNotEqualTo(1, 2) === true);
+assert(Parity::isLessThan(1, 2) === true);
+assert(Parity::isLessThanOrEqualTo(1, 2) === true);
+assert(Parity::isGreaterThan(1, 2) === false);
+assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
+```
+
 ## Concepts
 
 ### Comparable
@@ -38,22 +54,6 @@ than itself. **Parity** provides the following comparator implementations:
 * [Deep Comparator](src/Icecave/Parity/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
 * [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
 * [PHP Comparator](src/Icecave/Parity/Comparator/PhpComparator.php): Exposes the standard PHP comparison behavior as a Parity comparator.
-
-## Example
-
-The **Parity** comparison engine is used via static methods on the `Parity` facade class. These methods accept any types
-and are guaranteed to produce a deterministic comparison result. Some basic examples are shown below using integers.
-
-```php
-assert(Parity::compare(1, 2) < 0);
-assert(Parity::isEqualTo(1, 2) === false);
-assert(Parity::isNotEqualTo(1, 2) === true);
-assert(Parity::isNotEqualTo(1, 2) === true);
-assert(Parity::isLessThan(1, 2) === true);
-assert(Parity::isLessThanOrEqualTo(1, 2) === true);
-assert(Parity::isGreaterThan(1, 2) === false);
-assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
-```
 
 ## Algorithm Resolution
 
