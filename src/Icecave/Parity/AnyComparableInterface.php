@@ -1,10 +1,14 @@
 <?php
 namespace Icecave\Parity;
 
-interface ComparableInterface
+/**
+ * An object that can be compared to any other value.
+ */
+interface AnyComparableInterface
 {
     /**
-     * Compare this object with another value, yielding a result according to the following table:
+     * Compare this object with another value, yielding a result according to
+     * the following table:
      *
      * +--------------------+---------------+
      * | Condition          | Result        |
@@ -16,8 +20,7 @@ interface ComparableInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return integer                          The result of the comparison.
-     * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
+     * @return integer The result of the comparison.
      */
     public function compare($value);
 }

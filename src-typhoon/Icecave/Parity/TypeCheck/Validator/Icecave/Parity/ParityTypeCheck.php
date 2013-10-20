@@ -11,19 +11,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -35,19 +24,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -59,19 +37,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -83,19 +50,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -107,19 +63,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -131,19 +76,8 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
     }
 
@@ -155,19 +89,15 @@ class ParityTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
                 throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
             }
             throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'deep',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
+    }
+
+    public function comparator(array $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 

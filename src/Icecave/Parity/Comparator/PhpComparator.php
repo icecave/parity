@@ -1,10 +1,12 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
+use Icecave\Parity\TypeCheck\TypeCheck;
+
 /**
- * An object that can compare two values.
+ * A comparator that compares using the built-in PHP less than operator.
  */
-interface ComparatorInterface
+class PhpComparator implements ComparatorInterface
 {
     /**
      * Compare two values, yielding a result according to the following table:
@@ -22,5 +24,16 @@ interface ComparatorInterface
      *
      * @return integer The result of the comparison.
      */
-    public function compare($lhs, $rhs);
+    public function compare($lhs, $rhs)
+    {
+        TypeCheck::get(__CLASS__)->compare(func_get_args());
+
+        if ($lhs < $rhs) {
+            return -1;
+        } elseif ($rhs < $lhs) {
+            return +1;
+        }
+
+        return 0;
+    }
 }

@@ -4,11 +4,11 @@ namespace Icecave\Parity;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
-class AbstractComparableTest extends PHPUnit_Framework_TestCase
+class AbstractExtendedComparableTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->comparable = Phake::partialMock(__NAMESPACE__ . '\AbstractComparable');
+        $this->comparable = Phake::partialMock(__NAMESPACE__ . '\AbstractExtendedComparable');
 
         $this->less = 'less';
         $this->same = 'same';

@@ -4,71 +4,100 @@ namespace Icecave\Parity\Comparator;
 use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionObject;
 
-class DeepComparator extends AbstractComparator
+/**
+ * A comparator that performs deep comparison of PHP arrays and objects.
+ *
+ * Comparison of objects is recursion-safe.
+ */
+class DeepComparator implements ComparatorInterface
 {
-    public function __construct()
-    {
+    /**
+     * If $relaxClassComparisons is true, class names are not included in the
+     * comparison of objects.
+     *
+     * @param ComparatorInterface $fallbackComparator    The comparator to use when the operands are not arrays or objects.
+     * @param boolean             $relaxClassComparisons True to relax class name comparisons; false to compare strictly.
+     */
+    public function __construct(
+        ComparatorInterface $fallbackComparator,
+        $relaxClassComparisons = false
+    ) {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
-        parent::__construct();
+        $this->fallbackComparator = $fallbackComparator;
+        $this->relaxClassComparisons = $relaxClassComparisons;
     }
 
     /**
-     * @param mixed $lhs
-     * @param mixed $rhs
+     * Fetch the fallback comparator.
      *
-     * @return integer The result of the comparison.
+     * @return The comparator to use when the operands are not arrays or objects.
      */
-    public function defaultCompare($lhs, $rhs)
+    public function fallbackComparator()
     {
-        TypeCheck::get(__CLASS__)->defaultCompare(func_get_args());
+        $this->typeCheck->fallbackComparator(func_get_args());
 
-        $this->visitedObjects = array();
+        return $this->fallbackComparator;
+    }
 
-        return $this->compareValue($lhs, $rhs);
+    /**
+     * Compare two values, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * A deep comparison is performed if both operands are arrays, or both are
+     * objects; otherwise, the fallback comparator is used.
+     *
+     * @param mixed $lhs The first value to compare.
+     * @param mixed $rhs The second value to compare.
+     *
+     * @return integer The result of the comparison.
+     */
+    public function compare($lhs, $rhs)
+    {
+        TypeCheck::get(__CLASS__)->compare(func_get_args());
+
+        $visitationContext = array();
+
+        return $this->compareValue($lhs, $rhs, $visitationContext);
     }
 
     /**
      * @param mixed $lhs
      * @param mixed $rhs
+     * @param mixed &$visitationContext
      *
      * @return integer The result of the comparison.
      */
-    protected function compareValue($lhs, $rhs)
+    protected function compareValue($lhs, $rhs, &$visitationContext)
     {
         TypeCheck::get(__CLASS__)->compareValue(func_get_args());
 
-        if (gettype($lhs) !== gettype($rhs)) {
-            return strcmp(gettype($lhs), gettype($rhs));
-        }
-
         if (is_array($lhs) && is_array($rhs)) {
-            return $this->compareArray($lhs, $rhs);
+            return $this->compareArray($lhs, $rhs, $visitationContext);
         } elseif (is_object($lhs) && is_object($rhs)) {
-            return $this->compareObject($lhs, $rhs);
-        } elseif ($lhs < $rhs) {
-            return -1;
-        } elseif ($lhs > $rhs) {
-            return +1;
+            return $this->compareObject($lhs, $rhs, $visitationContext);
         }
 
-        return 0;
+        return $this->fallbackComparator()->compare($lhs, $rhs);
     }
 
     /**
      * @param array $lhs
      * @param array $rhs
+     * @param mixed &$visitationContext
      *
      * @return integer The result of the comparison.
      */
-    protected function compareArray(array $lhs, array $rhs)
+    protected function compareArray(array $lhs, array $rhs, &$visitationContext)
     {
         TypeCheck::get(__CLASS__)->compareArray(func_get_args());
-
-        $diff = count($lhs) - count($rhs);
-        if ($diff !== 0) {
-            return $diff;
-        }
 
         reset($lhs);
         reset($rhs);
@@ -79,16 +108,20 @@ class DeepComparator extends AbstractComparator
 
             if ($left === false && $right === false) {
                 break;
+            } elseif ($left === false) {
+                return -1;
+            } elseif ($right === false) {
+                return +1;
             }
 
-            $result = $this->compareValue($left['key'], $right['key']);
-            if ($result !== 0) {
-                return $result;
+            $cmp = $this->compareValue($left['key'], $right['key'], $visitationContext);
+            if ($cmp !== 0) {
+                return $cmp;
             }
 
-            $result = $this->compareValue($left['value'], $right['value']);
-            if ($result !== 0) {
-                return $result;
+            $cmp = $this->compareValue($left['value'], $right['value'], $visitationContext);
+            if ($cmp !== 0) {
+                return $cmp;
             }
         }
 
@@ -98,44 +131,44 @@ class DeepComparator extends AbstractComparator
     /**
      * @param object $lhs
      * @param object $rhs
+     * @param mixed  &$visitationContext
      *
      * @return integer The result of the comparison.
      */
-    protected function compareObject($lhs, $rhs)
+    protected function compareObject($lhs, $rhs, &$visitationContext)
     {
         TypeCheck::get(__CLASS__)->compareObject(func_get_args());
 
         if ($lhs === $rhs) {
             return 0;
-        }
-
-        $diff = strcmp(get_class($lhs), get_class($rhs));
-        if ($diff !== 0) {
-            return $diff;
+        } elseif ($this->isNestedComparison($lhs, $rhs, $visitationContext)) {
+            return strcmp(
+                spl_object_hash($lhs),
+                spl_object_hash($rhs)
+            );
+        } elseif (!$this->relaxClassComparisons) {
+            $diff = strcmp(get_class($lhs), get_class($rhs));
+            if ($diff !== 0) {
+                return $diff;
+            }
         }
 
         return $this->compareArray(
-            $this->objectProperties($lhs),
-            $this->objectProperties($rhs)
+            $this->objectProperties($lhs, $visitationContext),
+            $this->objectProperties($rhs, $visitationContext),
+            $visitationContext
         );
     }
 
     /**
      * @param object $object
+     * @param mixed  &$visitationContext
      *
      * @return array<string,mixed>
      */
-    protected function objectProperties($object)
+    protected function objectProperties($object, &$visitationContext)
     {
         TypeCheck::get(__CLASS__)->objectProperties(func_get_args());
-
-        $hashKey = spl_object_hash($object);
-        if (in_array($hashKey, $this->visitedObjects)) {
-            // To deal with infinite recursion just return the object hash for the properties.
-            return array(get_class($object) => $hashKey);
-        } else {
-            $this->visitedObjects[] = $hashKey;
-        }
 
         $properties = array();
         $reflector = new ReflectionObject($object);
@@ -162,6 +195,27 @@ class DeepComparator extends AbstractComparator
         return $properties;
     }
 
+    /**
+     * @param mixed $lhs
+     * @param mixed $rhs
+     * @param mixed &$visitationContext
+     */
+    protected function isNestedComparison($lhs, $rhs, &$visitationContext)
+    {
+        $this->typeCheck->isNestedComparison(func_get_args());
+
+        $key = spl_object_hash($lhs) . ':' . spl_object_hash($rhs);
+
+        if (array_key_exists($key, $visitationContext)) {
+            return true;
+        }
+
+        $visitationContext[$key] = true;
+
+        return false;
+    }
+
     private $typeCheck;
-    private $visitedObjects;
+    private $fallbackComparator;
+    private $relaxClassComparisons;
 }

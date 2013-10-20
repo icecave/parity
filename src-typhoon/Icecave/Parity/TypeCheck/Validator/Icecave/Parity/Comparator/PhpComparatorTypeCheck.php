@@ -1,16 +1,9 @@
 <?php
 namespace Icecave\Parity\TypeCheck\Validator\Icecave\Parity\Comparator;
 
-class ComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
+class PhpComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValidator
 {
-    public function validateConstruct(array $arguments)
-    {
-        if (\count($arguments) > 0) {
-            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
-        }
-    }
-
-    public function defaultCompare(array $arguments)
+    public function compare(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 2) {

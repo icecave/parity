@@ -1,6 +1,9 @@
 <?php
 namespace Icecave\Parity;
 
+/**
+ * Convenience trait that implements ExtendedComparableInterface
+ */
 trait ExtendedComparableTrait
 {
     /**
@@ -64,11 +67,9 @@ trait ExtendedComparableTrait
     }
 
     /**
-     * @see ComparableInterface::compare()
-     *
      * @param mixed $value The value to compare.
      *
-     * @return integer|null
+     * @return integer
      */
     abstract protected function compare($value);
 }

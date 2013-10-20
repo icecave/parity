@@ -1,7 +1,10 @@
 <?php
 namespace Icecave\Parity;
 
-interface ExtendedComparableInterface extends ComparableInterface
+/**
+ * Provides convenience methods for comparison operations.
+ */
+interface ExtendedComparableInterface
 {
     /**
      * @param mixed $value The value to compare.
