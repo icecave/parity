@@ -10,7 +10,7 @@ PHP does not provide a way to reliably and strictly compare values of heterogene
 operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php), and, when
 used with objects, the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php) can only
 compare by identity. No type-strict mechanism is provided for comparing objects by their properties; nor are there any
-type-strict versions of the relative comparison operators (less-than, greater-than, etc).
+type-strict versions of the relative comparison operators (less, greater, etc).
 
 **Parity** aims to fill the void by using [reflection](http://php.net/reflection) to recurse over objects and arrays,
 comparing their elements in a strict fashion. Furthermore, **Parity** provides natural comparison semantics for built-in
