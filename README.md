@@ -13,7 +13,7 @@ identity.
 A third option is required to strictly compare objects by their content. **Parity** aims to fill this void by using
 [reflection](http://php.net/reflection) to recurse over objects and arrays comparing their elements in a strict fashion.
 
-**Parity** also provides for classes to provide their own comparison implementations.
+**Parity** also also defines a standard way for classes to provide their own comparison algorithms.
 
 * Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
 * Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
