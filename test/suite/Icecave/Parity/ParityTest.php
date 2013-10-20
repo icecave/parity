@@ -13,6 +13,13 @@ class ParityTest extends PHPUnit_Framework_TestCase
         $this->more  = 1;
     }
 
+    public function testCompare()
+    {
+        $this->assertGreaterThan(0, Parity::compare($this->value, $this->less));
+        $this->assertSame(0, Parity::compare($this->value, $this->same));
+        $this->assertLessThan(0, Parity::compare($this->value, $this->more));
+    }
+
     public function testIsEqualTo()
     {
         $this->assertFalse(Parity::isEqualTo($this->value, $this->less));
@@ -55,45 +62,15 @@ class ParityTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(Parity::isGreaterThanOrEqualTo($this->value, $this->more));
     }
 
-    public function testIsEqualToWithDefaultComparator()
+    public function testComparitor()
     {
-        $this->assertFalse(Parity::isEqualTo($this->value, $this->less, false));
-        $this->assertTrue(Parity::isEqualTo($this->value, $this->same, false));
-        $this->assertFalse(Parity::isEqualTo($this->value, $this->more, false));
-    }
+        $comparator = Parity::comparator();
+        $this->assertInstanceOf(__NAMESPACE__ . '\Comparator\ParityComparator', $comparator);
 
-    public function testIsNotEqualToWithDefaultComparator()
-    {
-        $this->assertTrue(Parity::isNotEqualTo($this->value, $this->less, false));
-        $this->assertFalse(Parity::isNotEqualTo($this->value, $this->same, false));
-        $this->assertTrue(Parity::isNotEqualTo($this->value, $this->more, false));
-    }
+        $comparator = $comparator->fallbackComparator();
+        $this->assertInstanceOf(__NAMESPACE__ . '\Comparator\DeepComparator', $comparator);
 
-    public function testIsLessThanWithDefaultComparator()
-    {
-        $this->assertFalse(Parity::isLessThan($this->value, $this->less, false));
-        $this->assertFalse(Parity::isLessThan($this->value, $this->same, false));
-        $this->assertTrue(Parity::isLessThan($this->value, $this->more, false));
-    }
-
-    public function testIsGreaterThanWithDefaultComparator()
-    {
-        $this->assertTrue(Parity::isGreaterThan($this->value, $this->less, false));
-        $this->assertFalse(Parity::isGreaterThan($this->value, $this->same, false));
-        $this->assertFalse(Parity::isGreaterThan($this->value, $this->more, false));
-    }
-
-    public function testIsLessThanOrEqualToWithDefaultComparator()
-    {
-        $this->assertFalse(Parity::isLessThanOrEqualTo($this->value, $this->less, false));
-        $this->assertTrue(Parity::isLessThanOrEqualTo($this->value, $this->same, false));
-        $this->assertTrue(Parity::isLessThanOrEqualTo($this->value, $this->more, false));
-    }
-
-    public function testIsGreaterThanOrEqualToWithDefaultComparator()
-    {
-        $this->assertTrue(Parity::isGreaterThanOrEqualTo($this->value, $this->less, false));
-        $this->assertTrue(Parity::isGreaterThanOrEqualTo($this->value, $this->same, false));
-        $this->assertFalse(Parity::isGreaterThanOrEqualTo($this->value, $this->more, false));
+        $comparator = $comparator->fallbackComparator();
+        $this->assertInstanceOf(__NAMESPACE__ . '\Comparator\StrictPhpComparator', $comparator);
     }
 }
