@@ -35,6 +35,19 @@ class StrictPhpComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractVal
         }
     }
 
+    public function validateInvoke(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 2) {
+            if ($argumentCount < 1) {
+                throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
+            }
+            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+    }
+
     public function transformTypeName(array $arguments)
     {
         $argumentCount = \count($arguments);

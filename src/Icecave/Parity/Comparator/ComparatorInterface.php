@@ -23,4 +23,14 @@ interface ComparatorInterface
      * @return integer The result of the comparison.
      */
     public function compare($lhs, $rhs);
+
+    /**
+     * An alias for compare().
+     *
+     * @param mixed $lhs The first value to compare.
+     * @param mixed $rhs The second value to compare.
+     *
+     * @return integer The result of the comparison.
+     */
+    public function __invoke($lhs, $rhs);
 }

@@ -18,6 +18,18 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
             ->thenReturn(-1);
     }
 
+    public function testInvoke()
+    {
+        $this->assertSame(
+            -1,
+            call_user_func(
+                $this->comparator,
+                array(1, 2, 3),
+                array(1, 2, 3)
+            )
+        );
+    }
+
     public function testCompareInversion()
     {
         $lhs = Phake::mock('Icecave\Parity\AnyComparableInterface');

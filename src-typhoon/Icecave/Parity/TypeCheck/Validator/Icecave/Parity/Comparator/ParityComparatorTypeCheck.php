@@ -33,6 +33,19 @@ class ParityComparatorTypeCheck extends \Icecave\Parity\TypeCheck\AbstractValida
         }
     }
 
+    public function validateInvoke(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 2) {
+            if ($argumentCount < 1) {
+                throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('lhs', 0, 'mixed');
+            }
+            throw new \Icecave\Parity\TypeCheck\Exception\MissingArgumentException('rhs', 1, 'mixed');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\Parity\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+    }
+
     public function canCompare(array $arguments)
     {
         $argumentCount = \count($arguments);

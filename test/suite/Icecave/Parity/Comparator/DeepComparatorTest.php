@@ -16,6 +16,18 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $this->comparator = new DeepComparator($this->fallbackComparator);
     }
 
+    public function testInvoke()
+    {
+        $this->assertSame(
+            0,
+            call_user_func(
+                $this->comparator,
+                array(1, 2, 3),
+                array(1, 2, 3)
+            )
+        );
+    }
+
     public function testCompareWithObjectReferences()
     {
         $value = (object) array('foo' => 'bar');

@@ -58,6 +58,21 @@ class StrictPhpComparator implements ComparatorInterface
     }
 
     /**
+     * An alias for compare().
+     *
+     * @param mixed $lhs The first value to compare.
+     * @param mixed $rhs The second value to compare.
+     *
+     * @return integer The result of the comparison.
+     */
+    public function __invoke($lhs, $rhs)
+    {
+        $this->typeCheck->validateInvoke(func_get_args());
+
+        return $this->compare($lhs, $rhs);
+    }
+
+    /**
      * @param mixed $value
      *
      * @return string The effective type name to use when comparing types.
