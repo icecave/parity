@@ -6,13 +6,13 @@
 
 **Parity** is a deep comparison library for PHP.
 
-The PHP language does not provide a way to reliably and strictly compare values of heterogeneous types. The built-in
-comparison operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php),
-and, when used with objects, the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php)
-can only compare by identity. No type-strict mechanism is provided for comparing objects by their properties; nor are
-there type-strict versions of the relative comparison operators (less-than, greater-than, etc).
+PHP does not provide a way to reliably and strictly compare values of heterogeneous types. The built-in comparison
+operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php), and, when
+used with objects, the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php) can only
+compare by identity. No type-strict mechanism is provided for comparing objects by their properties; nor are there any
+type-strict versions of the relative comparison operators (less-than, greater-than, etc).
 
-**Parity** aims to fill the void by using [reflection](http://php.net/reflection) to recurse over objects and arrays
+**Parity** aims to fill the void by using [reflection](http://php.net/reflection) to recurse over objects and arrays,
 comparing their elements in a strict fashion. Furthermore, **Parity** provides natural comparison semantics for built-in
 types, as well as powerful mechanisms for classes to provide their own comparison algorithms.
 
