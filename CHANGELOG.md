@@ -7,9 +7,10 @@
 * **[BC]** Removed `AbstractComparable` (replaced with `AbstractExtendedComparable` which does not implement any comparable interface)
 * **[NEW]** Added `AnyComparableInterface` and `SelfComparableInterface`
 * **[NEW]** Added `ComparatorInterface::__invoke()`
-* **[NEW]** Added `StrictPhpComparator` and `PhpComparator`
+* **[NEW]** Added `ObjectIdentityComparator`, `StrictPhpComparator` and `PhpComparator`
 * **[NEW]** Added `ParityComparator` which compares numeric types in a more natural manner
 * **[IMPROVED]** Comparators are now use other comparators to handle unsupported comparisons (composition rather than extension)
+* **[IMPROVED]** Deep comparison no longer compares arrays by size first, allows for more natural ordering based on elements
 
 ### 0.1.0 (2013-05-29)
 
