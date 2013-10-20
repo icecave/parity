@@ -6,27 +6,33 @@
 
 **Parity** is a deep comparison library for PHP.
 
-The PHP language does not provide a way to reliably and strictly compare arbitrary values. The built-in comparison
-operators perform often undesired type juggling, and the strict equality operator (`===`) can only compare objects by
-identity.
+The PHP language does not provide a way to reliably and strictly compare values of heterogeneous types. The built-in
+comparison operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php),
+and, when used with objects, the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php)
+can only compare by identity. No type-strict mechanism is provided for comparing objects by their properties; nor are
+there type-strict versions of the relative comparison operators (less-than, greater-than, etc).
 
-A third option is required to strictly compare objects by their content. **Parity** aims to fill this void by using
-[reflection](http://php.net/reflection) to recurse over objects and arrays comparing their elements in a strict fashion.
-
-**Parity** also also defines a standard way for classes to provide their own comparison algorithms.
+**Parity** aims to fill the void by using [reflection](http://php.net/reflection) to recurse over objects and arrays
+comparing their elements in a strict fashion. Furthermore, **Parity** provides natural comparison semantics for built-in
+types, as well as powerful mechanisms for classes to provide their own comparison algorithms.
 
 * Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
 * Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
 
 ## Example
 
-The **Parity** comparison engine is used via static methods on the `Parity` facade class. These methods accept any types
-and are guaranteed to produce a deterministic comparison result. Some basic examples are shown below using integers.
+The **Parity** comparison engine is accessed via static methods on the `Parity` facade class. These methods accept any
+types and are guaranteed to produce a deterministic comparison result<sup>[1](#caveat1)</sup>. Some basic examples are
+shown below using integers.
 
 ```php
 use Icecave\Parity\Parity;
 
+// The compare() method provides a strcmp-style comparison, and hence can be
+// used as a sorting function for operations such as usort()
 assert(Parity::compare(1, 2) < 0);
+
+// The following methods are convience methods, implemented on top of compare().
 assert(Parity::isEqualTo(1, 2) === false);
 assert(Parity::isNotEqualTo(1, 2) === true);
 assert(Parity::isNotEqualTo(1, 2) === true);
@@ -71,6 +77,11 @@ deep comparison.
 
 When comparing scalar types, integers and doubles (PHP's only true numeric types) are treated as though they were the
 same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings are **not** compared in this way.
+
+## Caveats
+
+1. <a name="caveat1"></a>Comparison of recursive objects is not a truly deterministic operation as objects are compared by their
+[object hash](http://php.net/manual/en/function.spl-object-hash.php) where deeper comparison would otherwise result in infinite recursion.
 
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
