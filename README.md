@@ -13,12 +13,14 @@ identity.
 A third option is required to strictly compare objects by their content. **Parity** aims to fill this void by using
 [reflection](http://php.net/reflection) to recurse over objects and arrays comparing their elements in a strict fashion.
 
+**Parity** also provides for classes to provide their own comparison implementations.
+
 * Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
 * Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
 
 ## Concepts
 
-### Comparables
+### Comparable
 
 The core concept of **Parity** is the *comparable*. A comparable is any object that provides its own behavior for
 comparison with other values. The following refinements of the comparable concept are supported by the comparison engine:
@@ -27,21 +29,20 @@ comparison with other values. The following refinements of the comparable concep
 * [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php): A comparable that may only be compared to other objects of the same type.
 * [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php): A comparable that may be freely compared to values of any other type.
 
-### Comparators
+### Comparator
 
-* [Comparator](src/Icecave/Parity/Comparator/ComparatorInterface.php): Defines comparison behavior for values other than itself.
-
-**Parity** provides the following comparator implementations:
+A *[Comparator](src/Icecave/Parity/Comparator/ComparatorInterface.php)* defines comparison behavior for values other
+than itself. **Parity** provides the following comparator implementations:
 
 * [Parity Comparator](src/Icecave/Parity/Comparator/ParityComparator.php): Implements the logic surrounding comparables mentioned in the section above.
 * [Deep Comparator](src/Icecave/Parity/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
-* [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates the behavior of PHP's strict comparison (===) for less-than/greater-than.
+* [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
 * [PHP Comparator](src/Icecave/Parity/Comparator/PhpComparator.php): Exposes the standard PHP comparison behavior as a Parity comparator.
 
 ## Example
 
-The simplest way to use **Parity** is via the convenience methods on the `Parity` class. These methods accept any types
-and are guaranteed to produce a deterministic comparison result.
+The **Parity** comparison engine is used via static methods on the `Parity` facade class. These methods accept any types
+and are guaranteed to produce a deterministic comparison result. Some basic examples are shown below using integers.
 
 ```php
 assert(Parity::compare(1, 2) < 0);
@@ -58,15 +59,16 @@ assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
 
 The following algorithm is used by `Parity::compare($A, $B)` to determine which comparison implementation to use:
 
-1. If $A is *Any Comparable*, use $A->compare($B)
-2. If $A is *Restricted Comparable* and $A->canCompare($B), use $A->compare($B)
-3. If $A is *Self Comparable* and $A->compare(...) was implemented in get_type($B), use $A->compare($B)
+1. If $A is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
+2. If $A is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`, use `$A->compare($B)`
+3. If $A is [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$A->compare(...)` was implemented in `get_type($B)`, use `$A->compare($B)`
 
-If none of the above conditions are true, the comparison is tried in reverse with $A on the right hand size and $B on
-the left. If still no comparison can be made, comparison falls back to a strictly-typed deep comparison.
+If none of the above conditions are true, the comparison is tried in reverse with $A on the right hand side and $B on
+the left; the result is also inverted. If no comparison can be made, comparison falls back to a strictly-typed deep
+comparison.
 
 When compariing scalar types, integers and doubles (PHP's only true numeric types) are compared as though they were the
-same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings are *not* treated in this way.
+same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings are **not** compared in this way.
 
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
