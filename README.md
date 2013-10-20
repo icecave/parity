@@ -60,6 +60,7 @@ than itself. **Parity** provides the following comparator implementations:
 
 * [Parity Comparator](src/Icecave/Parity/Comparator/ParityComparator.php): Implements the logic surrounding comparables mentioned in the section above.
 * [Deep Comparator](src/Icecave/Parity/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
+* [Object Identity Comparator](src/Icecave/Parity/Comparator/ObjectIdentityComparator.php): Compares objects by identity.
 * [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
 * [PHP Comparator](src/Icecave/Parity/Comparator/PhpComparator.php): Exposes the standard PHP comparison behavior as a Parity comparator.
 

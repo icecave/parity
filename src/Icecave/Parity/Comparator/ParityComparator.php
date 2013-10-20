@@ -50,8 +50,8 @@ class ParityComparator implements ComparatorInterface
      * If either of the operands implements one of the Parity comparator
      * interfaces and is able to perform the comparison to the other operand
      * its compare() method is used to perform the comparison. If neither
-     * operand provides a suitable implementation, the fallback comparator
-     * is used.
+     * operand provides a suitable implementation, the fallback comparator is
+     * used.
      *
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
