@@ -38,7 +38,7 @@ use Icecave\Parity\Parity;
 // used as a sorting function for operations such as usort()
 assert(Parity::compare(1, 2) < 0);
 
-// The following methods are convience methods, implemented on top of compare().
+// The following methods are convenience methods, implemented on top of compare().
 assert(Parity::isEqualTo(1, 2) === false);
 assert(Parity::isNotEqualTo(1, 2) === true);
 assert(Parity::isNotEqualTo(1, 2) === true);
@@ -64,7 +64,7 @@ comparison with other values. The following refinements of the comparable concep
 A *[Comparator](src/Icecave/Parity/Comparator/ComparatorInterface.php)* defines comparison behavior for values other
 than itself. **Parity** provides the following comparator implementations:
 
-* [Parity Comparator](src/Icecave/Parity/Comparator/ParityComparator.php): Implements the logic surrounding comparables mentioned in the section above.
+* [Parity Comparator](src/Icecave/Parity/Comparator/ParityComparator.php): Implements the logic surrounding the comparable concepts described in the section above.
 * [Deep Comparator](src/Icecave/Parity/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
 * [Object Identity Comparator](src/Icecave/Parity/Comparator/ObjectIdentityComparator.php): Compares objects by identity.
 * [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
