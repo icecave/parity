@@ -27,7 +27,7 @@ class ParityComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return The comparator to use when the operands do not provide their own comparison algorithm.
+     * @return ComparatorInterface The comparator to use when the operands do not provide their own comparison algorithm.
      */
     public function fallbackComparator()
     {
