@@ -214,6 +214,8 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $lhs
      * @param mixed $rhs
      * @param mixed &$visitationContext
+     *
+     * @return boolean
      */
     protected function isNestedComparison($lhs, $rhs, &$visitationContext)
     {
