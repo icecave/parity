@@ -6,18 +6,24 @@
 
 **Parity** is a deep comparison library for PHP.
 
-PHP does not provide a way to reliably and strictly compare values of heterogeneous types. The built-in comparison
-operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php), and, when
-used with objects, the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php) can only
-compare by identity. No type-strict mechanism is provided for comparing objects by their properties; nor are there any
-type-strict versions of the relative comparison operators (less, greater, etc).
-
-**Parity** aims to fill the void by using [reflection](http://php.net/reflection) to recurse over objects and arrays,
-comparing their elements in a strict fashion. Furthermore, **Parity** provides natural comparison semantics for built-in
-types, as well as powerful mechanisms for classes to provide their own comparison algorithms.
-
 * Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
 * Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
+
+## Rationale
+
+PHP does not provide a way to reliably and strictly compare values of heterogeneous types. Most of the built-in
+comparison operators perform often undesired [type-juggling](http://php.net/manual/en/language.types.type-juggling.php).
+The one exception is the [strict equality operator](http://php.net/manual/en/language.operators.comparison.php), which
+has the further caveat that it can only compare objects by their identity. No type-strict mechanism is provided for
+comparing objects by their properties; nor are there any type-strict versions of the relative comparison operators
+(less-than, greater-than, etc).
+
+**Parity** aims to fill the void by providing a comparison engine with the following features:
+
+* Type-strict comparison of arrays and objects by their elements
+* Recursion-safe comparison of objects
+* Natural, type-strict comparison semantics for built-in types
+* Powerful mechanisms for classes to customize comparison behavior
 
 ## Example
 
