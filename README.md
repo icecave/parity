@@ -87,8 +87,9 @@ same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings ar
 
 ## Caveats
 
-1. <a name="caveat1"></a>Comparison of recursive objects is not a truly deterministic operation as objects are compared by their
-[object hash](http://php.net/manual/en/function.spl-object-hash.php) where deeper comparison would otherwise result in infinite recursion.
+1. <a name="caveat1"></a>Comparison of recursive objects is not a truly deterministic operation as objects are compared
+by their [object hash](http://php.net/manual/en/function.spl-object-hash.php) where deeper comparison would otherwise
+result in infinite recursion.
 
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
