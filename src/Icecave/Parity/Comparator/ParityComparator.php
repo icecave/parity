@@ -103,8 +103,9 @@ class ParityComparator implements ComparatorInterface
         } elseif ($lhs instanceof RestrictedComparableInterface && $lhs->canCompare($rhs)) {
             return true;
         } elseif ($lhs instanceof SelfComparableInterface) {
-            return is_object($rhs)
-                && get_class($rhs) === $this->compareImplementationClass($lhs);
+            $className = $this->compareImplementationClass($lhs);
+
+            return $rhs instanceof $className;
         }
 
         return false;

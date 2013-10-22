@@ -129,6 +129,23 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($result, -10);
     }
 
+    public function testCompareWithSelfComparableSubClass()
+    {
+        $lhsComparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $rhsComparable = Phake::mock(get_class($lhsComparable));
+
+        Phake::when($lhsComparable)
+            ->compare(Phake::anyParameters())
+            ->thenReturn(-10);
+
+        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+
+        Phake::verify($lhsComparable)->compare($rhsComparable);
+        Phake::verifyNoInteraction($this->fallbackComparator);
+
+        $this->assertSame($result, -10);
+    }
+
     public function testCompareWithSelfComparableUsesCache()
     {
         $lhsComparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
