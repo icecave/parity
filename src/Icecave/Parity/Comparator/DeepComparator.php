@@ -31,7 +31,7 @@ class DeepComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return The comparator to use when the operands are not arrays or objects.
+     * @return ComparatorInterface The comparator to use when the operands are not arrays or objects.
      */
     public function fallbackComparator()
     {
@@ -214,6 +214,8 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $lhs
      * @param mixed $rhs
      * @param mixed &$visitationContext
+     *
+     * @return boolean
      */
     protected function isNestedComparison($lhs, $rhs, &$visitationContext)
     {

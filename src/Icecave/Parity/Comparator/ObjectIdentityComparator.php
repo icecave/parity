@@ -21,7 +21,7 @@ class ObjectIdentityComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return The comparator to use for non-objects.
+     * @return ComparatorInterface The comparator to use for non-objects.
      */
     public function fallbackComparator()
     {

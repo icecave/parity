@@ -4,6 +4,7 @@ namespace Icecave\Parity\Comparator;
 use Icecave\Parity\AnyComparableInterface;
 use Icecave\Parity\RestrictedComparableInterface;
 use Icecave\Parity\SelfComparableInterface;
+use Icecave\Parity\SubClassComparableInterface;
 use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionMethod;
 
@@ -27,7 +28,7 @@ class ParityComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return The comparator to use when the operands do not provide their own comparison algorithm.
+     * @return ComparatorInterface The comparator to use when the operands do not provide their own comparison algorithm.
      */
     public function fallbackComparator()
     {
@@ -104,7 +105,11 @@ class ParityComparator implements ComparatorInterface
             return true;
         } elseif ($lhs instanceof SelfComparableInterface) {
             return is_object($rhs)
-                && get_class($rhs) === $this->compareImplementationClass($lhs);
+                && get_class($lhs) === get_class($rhs);
+        } elseif ($lhs instanceof SubClassComparableInterface) {
+            $className = $this->compareImplementationClass($lhs);
+
+            return $rhs instanceof $className;
         }
 
         return false;

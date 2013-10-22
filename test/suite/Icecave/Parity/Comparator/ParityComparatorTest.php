@@ -129,9 +129,84 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($result, -10);
     }
 
-    public function testCompareWithSelfComparableUsesCache()
+    public function testCompareWithSelfComparableAndSubClass()
     {
         $lhsComparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $rhsComparable = Phake::mock(get_class($lhsComparable));
+
+        Phake::when($lhsComparable)
+            ->compare(Phake::anyParameters())
+            ->thenReturn(-10);
+
+        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+
+        Phake::verify($lhsComparable, Phake::never())->compare(Phake::anyParameters());
+        Phake::verify($this->fallbackComparator)->compare($lhsComparable, $rhsComparable);
+
+        $this->assertSame($result, -1);
+    }
+
+    public function testCompareWithSelfComparableAndNonObject()
+    {
+        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+
+        $result = $this->comparator->compare($comparable, 10);
+
+        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
+        Phake::verify($this->fallbackComparator)->compare($comparable, 10);
+
+        $this->assertSame($result, -1);
+    }
+
+    public function testCompareWithSelfComparableAndUnrelatedType()
+    {
+        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+
+        $result = $this->comparator->compare($comparable, new stdClass);
+
+        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
+        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass);
+
+        $this->assertSame($result, -1);
+    }
+
+    public function testCompareWithSubClassComparable()
+    {
+        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $rhsComparable = clone $lhsComparable;
+
+        Phake::when($lhsComparable)
+            ->compare(Phake::anyParameters())
+            ->thenReturn(-10);
+
+        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+
+        Phake::verify($lhsComparable)->compare($rhsComparable);
+        Phake::verifyNoInteraction($this->fallbackComparator);
+
+        $this->assertSame($result, -10);
+    }
+
+    public function testCompareWithSubClassComparableAndSubClass()
+    {
+        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $rhsComparable = Phake::mock(get_class($lhsComparable));
+
+        Phake::when($lhsComparable)
+            ->compare(Phake::anyParameters())
+            ->thenReturn(-10);
+
+        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+
+        Phake::verify($lhsComparable)->compare($rhsComparable);
+        Phake::verifyNoInteraction($this->fallbackComparator);
+
+        $this->assertSame($result, -10);
+    }
+
+    public function testCompareWithSubClassComparableUsesCache()
+    {
+        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
         $rhsComparable = clone $lhsComparable;
 
         Phake::when($lhsComparable)
@@ -147,9 +222,9 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCompareWithSelfComparableAndNonObject()
+    public function testCompareWithSubClassComparableAndNonObject()
     {
-        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $comparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
 
         $result = $this->comparator->compare($comparable, 10);
 
@@ -159,9 +234,9 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($result, -1);
     }
 
-    public function testCompareWithSelfComparableAndDifferentType()
+    public function testCompareWithSubClassComparableAndUnrelatedType()
     {
-        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $comparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
 
         $result = $this->comparator->compare($comparable, new stdClass);
 
