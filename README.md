@@ -56,7 +56,8 @@ The core concept of **Parity** is the *comparable*. A comparable is any object t
 comparison with other values. The following refinements of the comparable concept are supported by the comparison engine:
 
 * [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php): A comparable that can be queried as to which values it may be compared to.
-* [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php): A comparable that may only be compared to other objects of the same type.
+* [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php): A comparable that may only be compared to other objects of exactly the same type.
+* [Sub Class Comparable](src/Icecave/Parity/SubClassComparableInterface.php): A comparable that may only be compared to other objects of the same (or a derived) type.
 * [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php): A comparable that may be freely compared to values of any other type.
 
 ### Comparator
@@ -74,11 +75,12 @@ than itself. **Parity** provides the following comparator implementations:
 
 The following process is used by `Parity::compare($A, $B)` to determine which comparison algorithm to use:
 
-1. If `$A` is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php), use `$A->compare($B)`
-2. If `$A` is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`,
-use `$A->compare($B)`
-3. If `$A` is [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php) and `$B` is an instance of the class
-where `$A->compare(...)` is implemented, use `$A->compare($B)`
+Use `$A->compare(B)` if:
+
+1. `$A` is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php); or
+2. `$A` is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`; or
+3. `$A` is [Self Comparable](src/Icecave/Parity/SubClassComparableInterface.php) and `$A` is exactly the same type as `$B`; or
+4. `$A` is [Sub Class Comparable](src/Icecave/Parity/SubClassComparableInterface.php) and `$B` is an instance of the class where `$A->compare()` is implemented
 
 If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
 the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
