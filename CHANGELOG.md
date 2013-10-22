@@ -1,5 +1,10 @@
 # Parity Changelog
 
+### 1.0.0-alpha.2 (2013-10-22)
+
+* **[BC]** `SelfComparableInterface` now requires the comparison operands to be the exactly same type.
+* **[NEW]** Added `SubClassComparableInterface`, similar to the previous behavior of `SelfComparableInterface`
+
 ### 1.0.0-alpha.1 (2013-10-20)
 
 * **[BC]** Removed `deep` parameter from `Parity::compare()` and related convenience methods

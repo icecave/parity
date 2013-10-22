@@ -98,4 +98,4 @@ result in infinite recursion.
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
 [Test Coverage]: https://coveralls.io/repos/IcecaveStudios/parity/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=1.0.0-alpha.1&color=yellow
+[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=1.0.0-alpha.2&color=yellow
