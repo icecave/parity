@@ -4,5 +4,5 @@ namespace Icecave\Parity;
 class PackageInfo
 {
     const NAME = 'Parity';
-    const VERSION = '1.0.0-alpha.1';
+    const VERSION = '1.0.0-alpha.2';
 }
