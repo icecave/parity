@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionObject;
 
 /**
@@ -22,8 +21,6 @@ class DeepComparator implements ComparatorInterface
         ComparatorInterface $fallbackComparator,
         $relaxClassComparisons = false
     ) {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->fallbackComparator = $fallbackComparator;
         $this->relaxClassComparisons = $relaxClassComparisons;
     }
@@ -35,8 +32,6 @@ class DeepComparator implements ComparatorInterface
      */
     public function fallbackComparator()
     {
-        $this->typeCheck->fallbackComparator(func_get_args());
-
         return $this->fallbackComparator;
     }
 
@@ -61,8 +56,6 @@ class DeepComparator implements ComparatorInterface
      */
     public function compare($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->compare(func_get_args());
-
         $visitationContext = array();
 
         return $this->compareValue($lhs, $rhs, $visitationContext);
@@ -78,8 +71,6 @@ class DeepComparator implements ComparatorInterface
      */
     public function __invoke($lhs, $rhs)
     {
-        $this->typeCheck->validateInvoke(func_get_args());
-
         return $this->compare($lhs, $rhs);
     }
 
@@ -92,8 +83,6 @@ class DeepComparator implements ComparatorInterface
      */
     protected function compareValue($lhs, $rhs, &$visitationContext)
     {
-        TypeCheck::get(__CLASS__)->compareValue(func_get_args());
-
         if (is_array($lhs) && is_array($rhs)) {
             return $this->compareArray($lhs, $rhs, $visitationContext);
         } elseif (is_object($lhs) && is_object($rhs)) {
@@ -112,8 +101,6 @@ class DeepComparator implements ComparatorInterface
      */
     protected function compareArray(array $lhs, array $rhs, &$visitationContext)
     {
-        TypeCheck::get(__CLASS__)->compareArray(func_get_args());
-
         reset($lhs);
         reset($rhs);
 
@@ -152,8 +139,6 @@ class DeepComparator implements ComparatorInterface
      */
     protected function compareObject($lhs, $rhs, &$visitationContext)
     {
-        TypeCheck::get(__CLASS__)->compareObject(func_get_args());
-
         if ($lhs === $rhs) {
             return 0;
         } elseif ($this->isNestedComparison($lhs, $rhs, $visitationContext)) {
@@ -183,8 +168,6 @@ class DeepComparator implements ComparatorInterface
      */
     protected function objectProperties($object, &$visitationContext)
     {
-        TypeCheck::get(__CLASS__)->objectProperties(func_get_args());
-
         $properties = array();
         $reflector = new ReflectionObject($object);
 
@@ -219,8 +202,6 @@ class DeepComparator implements ComparatorInterface
      */
     protected function isNestedComparison($lhs, $rhs, &$visitationContext)
     {
-        $this->typeCheck->isNestedComparison(func_get_args());
-
         $key = spl_object_hash($lhs) . ':' . spl_object_hash($rhs);
 
         if (array_key_exists($key, $visitationContext)) {
@@ -232,7 +213,6 @@ class DeepComparator implements ComparatorInterface
         return false;
     }
 
-    private $typeCheck;
     private $fallbackComparator;
     private $relaxClassComparisons;
 }

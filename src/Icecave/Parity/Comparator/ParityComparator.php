@@ -5,7 +5,6 @@ use Icecave\Parity\AnyComparableInterface;
 use Icecave\Parity\RestrictedComparableInterface;
 use Icecave\Parity\SelfComparableInterface;
 use Icecave\Parity\SubClassComparableInterface;
-use Icecave\Parity\TypeCheck\TypeCheck;
 use ReflectionMethod;
 
 /**
@@ -19,8 +18,6 @@ class ParityComparator implements ComparatorInterface
      */
     public function __construct(ComparatorInterface $fallbackComparator)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->fallbackComparator = $fallbackComparator;
         $this->compareImplementationClasses = array();
     }
@@ -32,8 +29,6 @@ class ParityComparator implements ComparatorInterface
      */
     public function fallbackComparator()
     {
-        $this->typeCheck->fallbackComparator(func_get_args());
-
         return $this->fallbackComparator;
     }
 
@@ -61,8 +56,6 @@ class ParityComparator implements ComparatorInterface
      */
     public function compare($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->compare(func_get_args());
-
         if ($this->canCompare($lhs, $rhs)) {
             return $lhs->compare($rhs);
         } elseif ($this->canCompare($rhs, $lhs)) {
@@ -82,8 +75,6 @@ class ParityComparator implements ComparatorInterface
      */
     public function __invoke($lhs, $rhs)
     {
-        $this->typeCheck->validateInvoke(func_get_args());
-
         return $this->compare($lhs, $rhs);
     }
 
@@ -97,8 +88,6 @@ class ParityComparator implements ComparatorInterface
      */
     protected function canCompare($lhs, $rhs)
     {
-        $this->typeCheck->canCompare(func_get_args());
-
         if ($lhs instanceof AnyComparableInterface) {
             return true;
         } elseif ($lhs instanceof RestrictedComparableInterface && $lhs->canCompare($rhs)) {
@@ -122,8 +111,6 @@ class ParityComparator implements ComparatorInterface
      */
     protected function compareImplementationClass($value)
     {
-        $this->typeCheck->compareImplementationClass(func_get_args());
-
         $className = get_class($value);
 
         if (array_key_exists($className, $this->compareImplementationClasses)) {
@@ -137,7 +124,6 @@ class ParityComparator implements ComparatorInterface
         return $declaringClassName;
     }
 
-    private $typeCheck;
     private $fallbackComparator;
     private $compareImplementationClasses;
 }

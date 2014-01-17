@@ -4,7 +4,6 @@ namespace Icecave\Parity;
 use Icecave\Parity\Comparator\DeepComparator;
 use Icecave\Parity\Comparator\ParityComparator;
 use Icecave\Parity\Comparator\StrictPhpComparator;
-use Icecave\Parity\TypeCheck\TypeCheck;
 
 abstract class Parity
 {
@@ -26,8 +25,6 @@ abstract class Parity
      */
     public static function compare($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->compare(func_get_args());
-
         return self::comparator()->compare($lhs, $rhs);
     }
 
@@ -39,8 +36,6 @@ abstract class Parity
      */
     public static function isEqualTo($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isEqualTo(func_get_args());
-
         return static::compare($lhs, $rhs) === 0;
     }
 
@@ -52,8 +47,6 @@ abstract class Parity
      */
     public static function isNotEqualTo($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isNotEqualTo(func_get_args());
-
         return static::compare($lhs, $rhs) !== 0;
     }
 
@@ -65,8 +58,6 @@ abstract class Parity
      */
     public static function isLessThan($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isLessThan(func_get_args());
-
         return static::compare($lhs, $rhs) < 0;
     }
 
@@ -78,8 +69,6 @@ abstract class Parity
      */
     public static function isGreaterThan($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isGreaterThan(func_get_args());
-
         return static::compare($lhs, $rhs) > 0;
     }
 
@@ -91,8 +80,6 @@ abstract class Parity
      */
     public static function isLessThanOrEqualTo($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isLessThanOrEqualTo(func_get_args());
-
         return static::compare($lhs, $rhs) <= 0;
     }
 
@@ -104,8 +91,6 @@ abstract class Parity
      */
     public static function isGreaterThanOrEqualTo($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->isGreaterThanOrEqualTo(func_get_args());
-
         return static::compare($lhs, $rhs) >= 0;
     }
 
@@ -119,8 +104,6 @@ abstract class Parity
      */
     public static function comparator()
     {
-        TypeCheck::get(__CLASS__)->comparator(func_get_args());
-
         if (null === self::$comparator) {
             self::$comparator = new ParityComparator(
                 new DeepComparator(

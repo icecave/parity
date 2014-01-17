@@ -16,7 +16,6 @@
         "icecave/repr": "~1"
     },
     "require-dev": {
-        "eloquent/typhoon": "~0.9.0",
         "eloquent/liberator": "~1",
         "icecave/archer": "~1"
     },
@@ -25,15 +24,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Icecave\\Parity": "src",
-            "Icecave\\Parity\\TypeCheck": "src-typhoon"
-        }
-    },
-    "extra": {
-        "typhoon": {
-            "output-path": "src-typhoon",
-            "validator-namespace": "Icecave\\Parity\\TypeCheck",
-            "use-native-callable": false
+            "Icecave\\Parity": "src"
         }
     }
 }

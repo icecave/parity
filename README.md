@@ -96,6 +96,6 @@ by their [object hash](http://php.net/manual/en/function.spl-object-hash.php) wh
 result in infinite recursion.
 
 <!-- references -->
-[Build Status]: https://travis-ci.org/IcecaveStudios/parity.png?branch=develop
-[Test Coverage]: https://coveralls.io/repos/IcecaveStudios/parity/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=1.0.0-alpha.2&color=yellow
+[Build Status]: http://b.adge.me/travis/IcecaveStudios/parity/develop.svg
+[Test Coverage]: http://b.adge.me/coveralls/IcecaveStudios/parity/develop.svg
+[SemVer]: http://b.adge.me/:semver-1.0.0-green.svg
