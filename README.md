@@ -98,4 +98,4 @@ result in infinite recursion.
 <!-- references -->
 [Build Status]: http://b.adge.me/travis/IcecaveStudios/parity/develop.svg
 [Test Coverage]: http://b.adge.me/coveralls/IcecaveStudios/parity/develop.svg
-[SemVer]: http://b.adge.me/:semver-1.0.0--alpha.2-yellow.svg
+[SemVer]: http://b.adge.me/:semver-1.0.0-green.svg

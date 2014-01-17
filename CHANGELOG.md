@@ -1,5 +1,9 @@
 # Parity Changelog
 
+### 1.0.0 (2014-01-17)
+
+* Stable release (no API changes since 1.0.0-alpha.2).
+
 ### 1.0.0-alpha.2 (2013-10-22)
 
 * **[BC]** `SelfComparableInterface` now requires the comparison operands to be the exactly same type.
