@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\TypeCheck\TypeCheck;
-
 /**
  * A comparator that compares objects by identity.
  */
@@ -13,8 +11,6 @@ class ObjectIdentityComparator implements ComparatorInterface
      */
     public function __construct(ComparatorInterface $fallbackComparator)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->fallbackComparator = $fallbackComparator;
     }
 
@@ -25,8 +21,6 @@ class ObjectIdentityComparator implements ComparatorInterface
      */
     public function fallbackComparator()
     {
-        $this->typeCheck->fallbackComparator(func_get_args());
-
         return $this->fallbackComparator;
     }
 
@@ -51,8 +45,6 @@ class ObjectIdentityComparator implements ComparatorInterface
      */
     public function compare($lhs, $rhs)
     {
-        TypeCheck::get(__CLASS__)->compare(func_get_args());
-
         if (!is_object($lhs) || !is_object($rhs)) {
             return $this->fallbackComparator()->compare($lhs, $rhs);
         }
@@ -74,11 +66,8 @@ class ObjectIdentityComparator implements ComparatorInterface
      */
     public function __invoke($lhs, $rhs)
     {
-        $this->typeCheck->validateInvoke(func_get_args());
-
         return $this->compare($lhs, $rhs);
     }
 
-    private $typeCheck;
     private $fallbackComparator;
 }

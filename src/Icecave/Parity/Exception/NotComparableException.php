@@ -2,7 +2,6 @@
 namespace Icecave\Parity\Exception;
 
 use Exception;
-use Icecave\Parity\TypeCheck\TypeCheck;
 use Icecave\Repr\Repr;
 use LogicException;
 
@@ -15,8 +14,6 @@ class NotComparableException extends LogicException
      */
     public function __construct($lhs, $rhs, Exception $previous = null)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         parent::__construct(
             sprintf(
                 'Can not compare %s to %s.',
@@ -27,6 +24,4 @@ class NotComparableException extends LogicException
             $previous
         );
     }
-
-    private $typeCheck;
 }

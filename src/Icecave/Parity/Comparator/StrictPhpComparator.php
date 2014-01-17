@@ -1,8 +1,6 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\TypeCheck\TypeCheck;
-
 /**
  * A comparator that approximates a type-strict version of the built-in PHP
  * comparison operations.
@@ -18,8 +16,6 @@ class StrictPhpComparator implements ComparatorInterface
      */
     public function __construct($relaxNumericComparisons = true)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->relaxNumericComparisons = $relaxNumericComparisons;
     }
     /**
@@ -40,8 +36,6 @@ class StrictPhpComparator implements ComparatorInterface
      */
     public function compare($lhs, $rhs)
     {
-        $this->typeCheck->compare(func_get_args());
-
         $lhsType = $this->transformTypeName($lhs);
         $rhsType = $this->transformTypeName($rhs);
         $cmp = strcmp($lhsType, $rhsType);
@@ -67,8 +61,6 @@ class StrictPhpComparator implements ComparatorInterface
      */
     public function __invoke($lhs, $rhs)
     {
-        $this->typeCheck->validateInvoke(func_get_args());
-
         return $this->compare($lhs, $rhs);
     }
 
@@ -79,8 +71,6 @@ class StrictPhpComparator implements ComparatorInterface
      */
     private function transformTypeName($value)
     {
-        $this->typeCheck->transformTypeName(func_get_args());
-
         if (is_object($value)) {
             return 'object:' . get_class($value);
         } elseif (is_integer($value) && $this->relaxNumericComparisons) {
@@ -90,6 +80,5 @@ class StrictPhpComparator implements ComparatorInterface
         return gettype($value);
     }
 
-    private $typeCheck;
     private $relaxNumericComparisons;
 }
