@@ -29,8 +29,8 @@
         "icecave/archer": "~1"
     },
     "autoload": {
-        "psr-0": {
-            "Icecave\\Parity": "src"
+        "psr-4": {
+            "Icecave\\Parity\\": "src"
         }
     },
     "extra": {
