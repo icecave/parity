@@ -55,21 +55,21 @@ assert(Parity::isGreaterThanOrEqualTo(1, 2) === false);
 The core concept of **Parity** is the *comparable*. A comparable is any object that provides its own behavior for
 comparison with other values. The following refinements of the comparable concept are supported by the comparison engine:
 
-* [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php): A comparable that can be queried as to which values it may be compared to.
-* [Self Comparable](src/Icecave/Parity/SelfComparableInterface.php): A comparable that may only be compared to other objects of exactly the same type.
-* [Sub Class Comparable](src/Icecave/Parity/SubClassComparableInterface.php): A comparable that may only be compared to other objects of the same (or a derived) type.
-* [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php): A comparable that may be freely compared to values of any other type.
+* [Restricted Comparable](src/RestrictedComparableInterface.php): A comparable that can be queried as to which values it may be compared to.
+* [Self Comparable](src/SelfComparableInterface.php): A comparable that may only be compared to other objects of exactly the same type.
+* [Sub Class Comparable](src/SubClassComparableInterface.php): A comparable that may only be compared to other objects of the same (or a derived) type.
+* [Any Comparable](src/AnyComparableInterface.php): A comparable that may be freely compared to values of any other type.
 
 ### Comparator
 
-A *[Comparator](src/Icecave/Parity/Comparator/ComparatorInterface.php)* defines comparison behavior for values other
+A *[Comparator](src/Comparator/ComparatorInterface.php)* defines comparison behavior for values other
 than itself. **Parity** provides the following comparator implementations:
 
-* [Parity Comparator](src/Icecave/Parity/Comparator/ParityComparator.php): Implements the logic surrounding the comparable concepts described in the section above.
-* [Deep Comparator](src/Icecave/Parity/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
-* [Object Identity Comparator](src/Icecave/Parity/Comparator/ObjectIdentityComparator.php): Compares objects by identity.
-* [Strict PHP Comparator](src/Icecave/Parity/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
-* [PHP Comparator](src/Icecave/Parity/Comparator/PhpComparator.php): Exposes the standard PHP comparison behavior as a Parity comparator.
+* [Parity Comparator](src/Comparator/ParityComparator.php): Implements the logic surrounding the comparable concepts described in the section above.
+* [Deep Comparator](src/Comparator/DeepComparator.php): Performs deep comparison of arrays and objects. Object comparison is recursion-safe.
+* [Object Identity Comparator](src/Comparator/ObjectIdentityComparator.php): Compares objects by identity.
+* [Strict PHP Comparator](src/Comparator/StrictPhpComparator.php): Approximates PHP's strict comparison for the full suite of comparison operations.
+* [PHP Comparator](src/Comparator/PhpComparator.php): Exposes the standard PHP comparison behavior as a Parity comparator.
 
 ## Algorithm Resolution
 
@@ -77,10 +77,10 @@ The following process is used by `Parity::compare($A, $B)` to determine which co
 
 Use `$A->compare(B)` if:
 
-1. `$A` is [Any Comparable](src/Icecave/Parity/AnyComparableInterface.php); or
-2. `$A` is [Restricted Comparable](src/Icecave/Parity/RestrictedComparableInterface.php) and `$A->canCompare($B)`; or
-3. `$A` is [Self Comparable](src/Icecave/Parity/SubClassComparableInterface.php) and `$A` is exactly the same type as `$B`; or
-4. `$A` is [Sub Class Comparable](src/Icecave/Parity/SubClassComparableInterface.php) and `$B` is an instance of the class where `$A->compare()` is implemented
+1. `$A` is [Any Comparable](src/AnyComparableInterface.php); or
+2. `$A` is [Restricted Comparable](src/RestrictedComparableInterface.php) and `$A->canCompare($B)`; or
+3. `$A` is [Self Comparable](src/SubClassComparableInterface.php) and `$A` is exactly the same type as `$B`; or
+4. `$A` is [Sub Class Comparable](src/SubClassComparableInterface.php) and `$B` is an instance of the class where `$A->compare()` is implemented
 
 If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
 the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
