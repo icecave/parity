@@ -95,6 +95,11 @@ same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings ar
 by their [object hash](http://php.net/manual/en/function.spl-object-hash.php) where deeper comparison would otherwise
 result in infinite recursion.
 
+## Contact us
+
+* Follow [@IcecaveStudios](https://twitter.com/IcecaveStudios) on Twitter
+* Visit the [Icecave Studios website](http://icecave.com.au)
+
 <!-- references -->
 [Build Status]: http://img.shields.io/travis/IcecaveStudios/parity/develop.svg?style=flat-square
 [Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/parity/develop.svg?style=flat-square
