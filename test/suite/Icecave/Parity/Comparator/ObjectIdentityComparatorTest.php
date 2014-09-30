@@ -31,8 +31,8 @@ class ObjectIdentityComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompare()
     {
-        $obj1 = new stdClass;
-        $obj2 = new stdClass;
+        $obj1 = new stdClass();
+        $obj2 = new stdClass();
 
         $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
         $this->assertSame(0, $this->comparator->compare($obj2, $obj2));
@@ -50,7 +50,7 @@ class ObjectIdentityComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithFallback()
     {
-        $lhs = new stdClass;
+        $lhs = new stdClass();
 
         $result = $this->comparator->compare($lhs, 20);
 

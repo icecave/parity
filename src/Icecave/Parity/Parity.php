@@ -107,7 +107,7 @@ abstract class Parity
         if (null === self::$comparator) {
             self::$comparator = new ParityComparator(
                 new DeepComparator(
-                    new StrictPhpComparator
+                    new StrictPhpComparator()
                 )
             );
         }

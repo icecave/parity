@@ -2,8 +2,8 @@
 namespace Icecave\Parity\Comparator;
 
 use DateTime;
-use Icecave\Parity\TestFixture\ChildObject;
-use Icecave\Parity\TestFixture\ParentObject;
+use Icecave\Parity\ChildObject;
+use Icecave\Parity\ParentObject;
 use Phake;
 use PHPUnit_Framework_TestCase;
 use stdClass;
@@ -184,16 +184,16 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                new DateTime,
-                new stdClass
+                new DateTime(),
+                new stdClass()
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                new stdClass,
-                new DateTime
+                new stdClass(),
+                new DateTime()
             )
         );
     }
@@ -213,10 +213,10 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithObjectsDifferentInnerClassTypes()
     {
-        $obj1 = new stdClass;
-        $obj1->foo = new stdClass;
+        $obj1 = new stdClass();
+        $obj1->foo = new stdClass();
 
-        $obj2 = new stdClass;
+        $obj2 = new stdClass();
         $obj2->foo = new ParentObject(0, 0);
 
         $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
@@ -260,11 +260,11 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithSimpleRecursion()
     {
-        $obj1 = new stdClass;
+        $obj1 = new stdClass();
         $obj1->foo = $obj1;
         $obj1->bar = 1;
 
-        $obj2 = new stdClass;
+        $obj2 = new stdClass();
         $obj2->foo = $obj2;
         $obj2->bar = 2;
 
@@ -281,13 +281,13 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithSimpleObjectsDoubleRecursion()
     {
-        $obj1 = new stdClass;
-        $obj1->recurse = new stdClass;
+        $obj1 = new stdClass();
+        $obj1->recurse = new stdClass();
         $obj1->recurse->recurse = $obj1;
         $obj1->value = 1;
 
-        $obj2 = new stdClass;
-        $obj2->recurse = new stdClass;
+        $obj2 = new stdClass();
+        $obj2->recurse = new stdClass();
         $obj2->recurse->recurse = $obj2;
         $obj2->value = 2;
 
@@ -304,11 +304,11 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithSimpleObjectsBothHavingObject1AsFirstProperty()
     {
-        $obj1 = new stdClass;
+        $obj1 = new stdClass();
         $obj1->foo = $obj1;
         $obj1->bar = 1;
 
-        $obj2 = new stdClass;
+        $obj2 = new stdClass();
         $obj2->foo = $obj1;
         $obj2->bar = 2;
 
@@ -318,16 +318,16 @@ class DeepComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithObjectCycle()
     {
-        $obj1 = new stdClass;
+        $obj1 = new stdClass();
         $obj1->foo = new ParentObject('foo1', $obj1);
 
-        $obj2 = new stdClass;
+        $obj2 = new stdClass();
         $obj2->foo = new ParentObject('foo2', $obj2);
 
-        $obj3 = new stdClass;
+        $obj3 = new stdClass();
         $obj3->foo = new ChildObject('bar3', $obj1);
 
-        $obj4 = new stdClass;
+        $obj4 = new stdClass();
         $obj4->foo = new ChildObject('bar4', $obj2);
 
         $this->assertLessThan(0, $this->comparator->compare($obj1, $obj2));

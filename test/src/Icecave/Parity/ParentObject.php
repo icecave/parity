@@ -1,5 +1,5 @@
 <?php
-namespace Icecave\Parity\TestFixture;
+namespace Icecave\Parity;
 
 class ParentObject
 {
