@@ -95,6 +95,86 @@ abstract class Parity
     }
 
     /**
+     * @param mixed $lhs     The first value to compare.
+     * @param mixed $rhs,... The second (and more) value(s) to compare.
+     *
+     * @return mixed
+     */
+    public static function min($lhs, $rhs)
+    {
+        if (func_num_args() === 2) {
+            if (static::isLessThan($lhs, $rhs)) {
+                return $lhs;
+            } else {
+                return $rhs;
+            }
+        }
+
+        return self::minSequence(func_get_args());
+    }
+
+    /**
+     * @param mixed $lhs     The first value to compare.
+     * @param mixed $rhs,... The second (and more) value(s) to compare.
+     *
+     * @return mixed
+     */
+    public static function max($lhs, $rhs)
+    {
+        if (func_num_args() === 2) {
+            if (static::isGreaterThan($lhs, $rhs)) {
+                return $lhs;
+            } else {
+                return $rhs;
+            }
+        }
+
+        return self::maxSequence(func_get_args());
+    }
+
+    /**
+     * @param array|Traversable $sequence The sequence to find the minimum value in.
+     * @param mixed|null        $default  The default miniumum value, or null.
+     *
+     * @return mixed|null The minimum value in the sequence, which may be null if the sequence is empty and no other default is given.
+     */
+    public static function minSequence($sequence, $default = null)
+    {
+        $min = $default;
+
+        foreach ($sequence as $value) {
+            if (null === $min) {
+                $min = $value;
+            } elseif (static::isLessThan($value, $min)) {
+                $min = $value;
+            }
+        }
+
+        return $min;
+    }
+
+    /**
+     * @param array|Traversable $sequence The sequence to find the maximum value in.
+     * @param mixed|null        $default  The default maxiumum value, or null.
+     *
+     * @return mixed|null The maximum value in the sequence, which may be null if the sequence is empty and no other default is given.
+     */
+    public static function maxSequence($sequence, $default = null)
+    {
+        $max = $default;
+
+        foreach ($sequence as $value) {
+            if (null === $max) {
+                $max = $value;
+            } elseif (static::isGreaterThan($value, $max)) {
+                $max = $value;
+            }
+        }
+
+        return $max;
+    }
+
+    /**
      * Get the internal Parity comparator.
      *
      * The comparator returned by this method in such as way as to enforce the

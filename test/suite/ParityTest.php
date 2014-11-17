@@ -62,6 +62,122 @@ class ParityTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(Parity::isGreaterThanOrEqualTo($this->value, $this->more));
     }
 
+    public function testMin()
+    {
+        $this->assertSame($this->less, Parity::min($this->value, $this->less));
+        $this->assertSame($this->less, Parity::min($this->less, $this->value));
+        $this->assertSame($this->less, Parity::min($this->value, $this->same, $this->less, $this->more));
+    }
+
+    public function testMax()
+    {
+        $this->assertSame($this->more, Parity::max($this->value, $this->more));
+        $this->assertSame($this->more, Parity::max($this->more, $this->value));
+        $this->assertSame($this->more, Parity::max($this->value, $this->same, $this->less, $this->more));
+    }
+
+    public function testMinSequenceDefault()
+    {
+        $this->assertNull(
+            Parity::minSequence(
+                array(),
+                null
+            )
+        );
+
+        $this->assertSame(
+            $this->value,
+            Parity::minSequence(
+                array(),
+                $this->value
+            )
+        );
+
+        $this->assertSame(
+            $this->value,
+            Parity::minSequence(
+                array($this->value),
+                $this->value
+            )
+        );
+
+        $this->assertSame(
+            $this->less,
+            Parity::minSequence(
+                array($this->value),
+                $this->less
+            )
+        );
+    }
+
+    public function testMaxSequenceDefault()
+    {
+        $this->assertNull(
+            Parity::maxSequence(
+                array(),
+                null
+            )
+        );
+
+        $this->assertSame(
+            $this->value,
+            Parity::maxSequence(
+                array(),
+                $this->value
+            )
+        );
+
+        $this->assertSame(
+            $this->value,
+            Parity::maxSequence(
+                array($this->value),
+                $this->value
+            )
+        );
+
+        $this->assertSame(
+            $this->more,
+            Parity::maxSequence(
+                array($this->value),
+                $this->more
+            )
+        );
+    }
+
+    public function testMinSequence()
+    {
+        $sequence = array(
+            $this->value,
+            $this->less,
+            $this->same,
+            $this->more,
+        );
+
+        $this->assertSame(
+            $this->less,
+            Parity::minSequence(
+                $sequence
+            )
+        );
+    }
+
+    public function testMaxSequence()
+    {
+        $sequence = array(
+            $this->value,
+            $this->less,
+            $this->same,
+            $this->more,
+        );
+
+        $this->assertSame(
+            $this->more,
+            Parity::maxSequence(
+                $sequence
+            )
+        );
+    }
+
     public function testComparitor()
     {
         $comparator = Parity::comparator();
