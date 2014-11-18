@@ -143,6 +143,10 @@ abstract class Parity
         $min = $default;
 
         foreach ($sequence as $value) {
+            if (null === $value) {
+                continue;
+            }
+
             if (null === $min) {
                 $min = $value;
             } elseif (static::isLessThan($value, $min)) {
@@ -164,6 +168,10 @@ abstract class Parity
         $max = $default;
 
         foreach ($sequence as $value) {
+            if (null === $value) {
+                continue;
+            }
+
             if (null === $max) {
                 $max = $value;
             } elseif (static::isGreaterThan($value, $max)) {

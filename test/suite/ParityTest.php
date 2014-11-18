@@ -108,6 +108,14 @@ class ParityTest extends PHPUnit_Framework_TestCase
                 $this->less
             )
         );
+
+        $this->assertSame(
+            $this->value,
+            Parity::minSequence(
+                array(null),
+                $this->value
+            )
+        );
     }
 
     public function testMaxSequenceDefault()
@@ -142,12 +150,21 @@ class ParityTest extends PHPUnit_Framework_TestCase
                 $this->more
             )
         );
+
+        $this->assertSame(
+            $this->value,
+            Parity::maxSequence(
+                array(null),
+                $this->value
+            )
+        );
     }
 
     public function testMinSequence()
     {
         $sequence = array(
             $this->value,
+            null,
             $this->less,
             $this->same,
             $this->more,
@@ -165,6 +182,7 @@ class ParityTest extends PHPUnit_Framework_TestCase
     {
         $sequence = array(
             $this->value,
+            null,
             $this->less,
             $this->same,
             $this->more,
