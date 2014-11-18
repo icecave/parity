@@ -102,14 +102,6 @@ abstract class Parity
      */
     public static function min($lhs, $rhs)
     {
-        if (func_num_args() === 2) {
-            if (static::isLessThan($lhs, $rhs)) {
-                return $lhs;
-            } else {
-                return $rhs;
-            }
-        }
-
         return self::minSequence(func_get_args());
     }
 
@@ -121,37 +113,31 @@ abstract class Parity
      */
     public static function max($lhs, $rhs)
     {
-        if (func_num_args() === 2) {
-            if (static::isGreaterThan($lhs, $rhs)) {
-                return $lhs;
-            } else {
-                return $rhs;
-            }
-        }
-
         return self::maxSequence(func_get_args());
     }
 
     /**
      * @param array|Traversable $sequence The sequence to find the minimum value in.
-     * @param mixed|null        $default  The default miniumum value, or null.
+     * @param mixed             $default  The default miniumum value.
      *
-     * @return mixed|null The minimum value in the sequence, which may be null if the sequence is empty and no other default is given.
+     * @return mixed The minimum value in the sequence.
      */
     public static function minSequence($sequence, $default = null)
     {
-        $min = $default;
+        $minAssigned = false;
+        $min = null;
 
         foreach ($sequence as $value) {
-            if (null === $value) {
-                continue;
-            }
-
-            if (null === $min) {
+            if (!$minAssigned) {
+                $minAssigned = true;
                 $min = $value;
             } elseif (static::isLessThan($value, $min)) {
                 $min = $value;
             }
+        }
+
+        if (!$minAssigned) {
+            return $default;
         }
 
         return $min;
@@ -159,24 +145,26 @@ abstract class Parity
 
     /**
      * @param array|Traversable $sequence The sequence to find the maximum value in.
-     * @param mixed|null        $default  The default maxiumum value, or null.
+     * @param mixed             $default  The default maxiumum value.
      *
-     * @return mixed|null The maximum value in the sequence, which may be null if the sequence is empty and no other default is given.
+     * @return mixed The maximum value in the sequence.
      */
     public static function maxSequence($sequence, $default = null)
     {
-        $max = $default;
+        $maxAssigned = false;
+        $max = null;
 
         foreach ($sequence as $value) {
-            if (null === $value) {
-                continue;
-            }
-
-            if (null === $max) {
+            if (!$maxAssigned) {
+                $maxAssigned = true;
                 $max = $value;
             } elseif (static::isGreaterThan($value, $max)) {
                 $max = $value;
             }
+        }
+
+        if (!$maxAssigned) {
+            return $default;
         }
 
         return $max;

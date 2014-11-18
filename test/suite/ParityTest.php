@@ -2,15 +2,17 @@
 namespace Icecave\Parity;
 
 use PHPUnit_Framework_TestCase;
+use stdClass;
 
 class ParityTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->value = 0;
-        $this->less  = -1;
-        $this->same  = 0;
-        $this->more  = 1;
+        $this->value  = 0;
+        $this->less   = -1;
+        $this->same   = 0;
+        $this->more   = 1;
+        $this->object = new stdClass();
     }
 
     public function testCompare()
@@ -76,123 +78,127 @@ class ParityTest extends PHPUnit_Framework_TestCase
         $this->assertSame($this->more, Parity::max($this->value, $this->same, $this->less, $this->more));
     }
 
-    public function testMinSequenceDefault()
+    /**
+     * @dataProvider minSequenceData
+     */
+    public function testMinSequence($sequence, $default, $expected)
     {
-        $this->assertNull(
-            Parity::minSequence(
-                array(),
-                null
-            )
-        );
-
         $this->assertSame(
-            $this->value,
-            Parity::minSequence(
-                array(),
-                $this->value
-            )
-        );
-
-        $this->assertSame(
-            $this->value,
-            Parity::minSequence(
-                array($this->value),
-                $this->value
-            )
-        );
-
-        $this->assertSame(
-            $this->less,
-            Parity::minSequence(
-                array($this->value),
-                $this->less
-            )
-        );
-
-        $this->assertSame(
-            $this->value,
-            Parity::minSequence(
-                array(null),
-                $this->value
-            )
+            $expected,
+            Parity::minSequence($sequence, $default)
         );
     }
 
-    public function testMaxSequenceDefault()
+    public function minSequenceData()
     {
-        $this->assertNull(
-            Parity::maxSequence(
-                array(),
-                null
-            )
-        );
+        $value  = 0;
+        $less   = -1;
+        $same   = 0;
+        $more   = 1;
+        $object = new stdClass();
 
-        $this->assertSame(
-            $this->value,
-            Parity::maxSequence(
-                array(),
-                $this->value
-            )
-        );
+        $sequenceEmpty = array();
 
-        $this->assertSame(
-            $this->value,
-            Parity::maxSequence(
-                array($this->value),
-                $this->value
-            )
-        );
-
-        $this->assertSame(
-            $this->more,
-            Parity::maxSequence(
-                array($this->value),
-                $this->more
-            )
-        );
-
-        $this->assertSame(
-            $this->value,
-            Parity::maxSequence(
-                array(null),
-                $this->value
-            )
-        );
-    }
-
-    public function testMinSequence()
-    {
-        $sequence = array(
-            $this->value,
+        $sequenceObjectAndNull = array(
+            $object,
             null,
-            $this->less,
-            $this->same,
-            $this->more,
         );
 
-        $this->assertSame(
-            $this->less,
-            Parity::minSequence(
-                $sequence
-            )
+        $sequenceNumber = array(
+            $value,
+            $less,
+            $same,
+            $more,
+        );
+
+        $sequenceMixed = array(
+            $value,
+            $less,
+            $same,
+            $more,
+            $object,
+            true,
+            null,
+        );
+
+        return array(
+            'Empty sequence, default null'             => array($sequenceEmpty,         null,    null),
+            'Empty sequence, default object'           => array($sequenceEmpty,         $object, $object),
+            'Empty sequence, default value'            => array($sequenceEmpty,         $value,  $value),
+
+            'Object and null sequence, default null'   => array($sequenceObjectAndNull, null,    null),
+            'Object and null sequence, default object' => array($sequenceObjectAndNull, $object, null),
+            'Object and null sequence, default value'  => array($sequenceObjectAndNull, $value,  null),
+
+            'Number sequence, default null'            => array($sequenceNumber,        null,    $less),
+            'Number sequence, default object'          => array($sequenceNumber,        $object, $less),
+            'Number sequence, default value'           => array($sequenceNumber,        $value,  $less),
+
+            'Mixed sequence, default null'             => array($sequenceMixed,         null,    null),
+            'Mixed sequence, default object'           => array($sequenceMixed,         $object, null),
+            'Mixed sequence, default value'            => array($sequenceMixed,         $value,  null),
         );
     }
 
-    public function testMaxSequence()
+    /**
+     * @dataProvider maxSequenceData
+     */
+    public function testMaxSequence($sequence, $default, $expected)
     {
-        $sequence = array(
-            $this->value,
+        $this->assertSame(
+            $expected,
+            Parity::maxSequence($sequence, $default)
+        );
+    }
+
+    public function maxSequenceData()
+    {
+        $value  = 0;
+        $less   = -1;
+        $same   = 0;
+        $more   = 1;
+        $object = new stdClass();
+
+        $sequenceEmpty = array();
+
+        $sequenceObjectAndNull = array(
+            $object,
             null,
-            $this->less,
-            $this->same,
-            $this->more,
         );
 
-        $this->assertSame(
-            $this->more,
-            Parity::maxSequence(
-                $sequence
-            )
+        $sequenceNumber = array(
+            $value,
+            $less,
+            $same,
+            $more,
+        );
+
+        $sequenceMixed = array(
+            $value,
+            $less,
+            $same,
+            $more,
+            $object,
+            true,
+            null,
+        );
+
+        return array(
+            'Empty sequence, default null'             => array($sequenceEmpty,         null,    null),
+            'Empty sequence, default object'           => array($sequenceEmpty,         $object, $object),
+            'Empty sequence, default value'            => array($sequenceEmpty,         $value,  $value),
+
+            'Object and null sequence, default null'   => array($sequenceObjectAndNull, null,    $object),
+            'Object and null sequence, default object' => array($sequenceObjectAndNull, $object, $object),
+            'Object and null sequence, default value'  => array($sequenceObjectAndNull, $value,  $object),
+
+            'Number sequence, default null'            => array($sequenceNumber,        null,    $more),
+            'Number sequence, default object'          => array($sequenceNumber,        $object, $more),
+            'Number sequence, default value'           => array($sequenceNumber,        $value,  $more),
+
+            'Mixed sequence, default null'             => array($sequenceMixed,         null,    $object),
+            'Mixed sequence, default object'           => array($sequenceMixed,         $object, $object),
+            'Mixed sequence, default value'            => array($sequenceMixed,         $value,  $object),
         );
     }
 
