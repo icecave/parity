@@ -6,7 +6,7 @@
 
 **Parity** is a deep comparison library for PHP.
 
-    composer require recoil/recoil
+    composer require icecave/parity
 
 ## Rationale
 
