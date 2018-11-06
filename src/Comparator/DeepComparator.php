@@ -105,26 +105,32 @@ class DeepComparator implements ComparatorInterface
         reset($rhs);
 
         while (true) {
-            $left  = each($lhs);
-            $right = each($rhs);
+            $lk = key($lhs);
+            $rk = key($rhs);
 
-            if ($left === false && $right === false) {
+            if ($lk === null && $rk === null) {
                 break;
-            } elseif ($left === false) {
+            } elseif ($lk === null) {
                 return -1;
-            } elseif ($right === false) {
+            } elseif ($rk === null) {
                 return +1;
             }
 
-            $cmp = $this->compareValue($left['key'], $right['key'], $visitationContext);
+            $cmp = $this->compareValue($lk, $rk, $visitationContext);
             if ($cmp !== 0) {
                 return $cmp;
             }
 
-            $cmp = $this->compareValue($left['value'], $right['value'], $visitationContext);
+            $lv = current($lhs);
+            $rv = current($rhs);
+
+            $cmp = $this->compareValue($lv, $rv, $visitationContext);
             if ($cmp !== 0) {
                 return $cmp;
             }
+
+            next($lhs);
+            next($rhs);
         }
 
         return 0;
