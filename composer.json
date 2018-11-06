@@ -32,6 +32,9 @@
     "autoload": { "psr-4": { "Icecave\\Parity\\": "src" } },
     "autoload-dev": { "psr-4": { "Icecave\\Parity\\": "test/src" } },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1"
+        }
     }
 }

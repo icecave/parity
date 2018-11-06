@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3164f424f6b678e3ba44463385cea674",
+    "content-hash": "12dd85328a5c06171ae1ff045b2e1cd9",
     "packages": [
         {
             "name": "icecave/repr",
@@ -1623,5 +1623,8 @@
     "platform": {
         "php": "^7"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.1"
+    }
 }
