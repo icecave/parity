@@ -2,9 +2,9 @@
 namespace Icecave\Parity\Exception;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class NotComparableExceptionTest extends PHPUnit_Framework_TestCase
+class NotComparableExceptionTest extends TestCase
 {
     public function testException()
     {

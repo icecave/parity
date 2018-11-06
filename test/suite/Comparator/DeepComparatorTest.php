@@ -5,10 +5,10 @@ use DateTime;
 use Icecave\Parity\ChildObject;
 use Icecave\Parity\ParentObject;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class DeepComparatorTest extends PHPUnit_Framework_TestCase
+class DeepComparatorTest extends TestCase
 {
     public function setUp()
     {

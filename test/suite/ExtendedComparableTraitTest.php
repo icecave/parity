@@ -2,9 +2,9 @@
 namespace Icecave\Parity;
 
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ExtendedComparableTraitTest extends PHPUnit_Framework_TestCase
+class ExtendedComparableTraitTest extends TestCase
 {
     public function setUp()
     {

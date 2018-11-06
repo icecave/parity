@@ -21,21 +21,20 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
-        "icecave/repr": "~1"
+        "php": "^7",
+        "icecave/repr": "^1"
     },
     "require-dev": {
-        "eloquent/liberator": "~1",
-        "icecave/archer": "~1"
+        "eloquent/liberator": "^1",
+        "phake/phake": "^1",
+        "phpunit/phpunit": "^7"
     },
-    "autoload": {
-        "psr-4": {
-            "Icecave\\Parity\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "1.0.x-dev"
+    "autoload": { "psr-4": { "Icecave\\Parity\\": "src" } },
+    "autoload-dev": { "psr-4": { "Icecave\\Parity\\": "test/src" } },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1"
         }
     }
 }

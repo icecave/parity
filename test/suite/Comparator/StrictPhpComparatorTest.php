@@ -2,10 +2,10 @@
 namespace Icecave\Parity\Comparator;
 
 use DateTime;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class StrictPhpComparatorTest extends PHPUnit_Framework_TestCase
+class StrictPhpComparatorTest extends TestCase
 {
     public function setUp()
     {

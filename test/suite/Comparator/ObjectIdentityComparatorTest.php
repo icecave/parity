@@ -2,10 +2,10 @@
 namespace Icecave\Parity\Comparator;
 
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ObjectIdentityComparatorTest extends PHPUnit_Framework_TestCase
+class ObjectIdentityComparatorTest extends TestCase
 {
     public function setUp()
     {
