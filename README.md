@@ -1,8 +1,8 @@
 # Parity
 
-[![Build Status]](https://travis-ci.org/IcecaveStudios/parity)
-[![Test Coverage]](https://coveralls.io/r/IcecaveStudios/parity?branch=develop)
-[![SemVer]](http://semver.org)
+[![Build Status](http://img.shields.io/travis/IcecaveStudios/parity/master.svg?style=flat-square)](https://travis-ci.org/IcecaveStudios/parity)
+[![Code Coverage](https://img.shields.io/codecov/c/github/IcecaveStudios/parity/master.svg?style=flat-square)](https://codecov.io/github/IcecaveStudios/parity)
+[![Latest Version](http://img.shields.io/packagist/v/icecave/parity.svg?style=flat-square&label=semver)](https://semver.org)
 
 **Parity** is a deep comparison library for PHP.
 
