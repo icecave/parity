@@ -131,16 +131,11 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithSelfComparableAndSubClass()
     {
-        $lhsComparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
-        $rhsComparable = Phake::mock(get_class($lhsComparable));
-
-        Phake::when($lhsComparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $lhsComparable = new SelfComparable();
+        $rhsComparable = new SelfComparableSubClass();
 
         $result = $this->comparator->compare($lhsComparable, $rhsComparable);
 
-        Phake::verify($lhsComparable, Phake::never())->compare(Phake::anyParameters());
         Phake::verify($this->fallbackComparator)->compare($lhsComparable, $rhsComparable);
 
         $this->assertSame($result, -1);
@@ -162,10 +157,10 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
     {
         $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
 
-        $result = $this->comparator->compare($comparable, new stdClass);
+        $result = $this->comparator->compare($comparable, new stdClass());
 
         Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass);
+        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass());
 
         $this->assertSame($result, -1);
     }
@@ -189,16 +184,11 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithSubClassComparableAndSubClass()
     {
-        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
-        $rhsComparable = Phake::mock(get_class($lhsComparable));
-
-        Phake::when($lhsComparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $lhsComparable = new SubClassComparable();
+        $rhsComparable = new SubClassComparableSubClass();
 
         $result = $this->comparator->compare($lhsComparable, $rhsComparable);
 
-        Phake::verify($lhsComparable)->compare($rhsComparable);
         Phake::verifyNoInteraction($this->fallbackComparator);
 
         $this->assertSame($result, -10);
@@ -238,10 +228,10 @@ class ParityComparatorTest extends PHPUnit_Framework_TestCase
     {
         $comparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
 
-        $result = $this->comparator->compare($comparable, new stdClass);
+        $result = $this->comparator->compare($comparable, new stdClass());
 
         Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass);
+        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass());
 
         $this->assertSame($result, -1);
     }

@@ -9,7 +9,7 @@ class StrictPhpComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->comparator = new StrictPhpComparator;
+        $this->comparator = new StrictPhpComparator();
     }
 
     public function testCompare()
@@ -37,8 +37,8 @@ class StrictPhpComparatorTest extends PHPUnit_Framework_TestCase
 
     public function testCompareWithObjects()
     {
-        $this->assertSame(0, $this->comparator->compare(new stdClass, new stdClass));
-        $this->assertGreaterThan(0, $this->comparator->compare(new stdClass, new DateTime));
+        $this->assertSame(0, $this->comparator->compare(new stdClass(), new stdClass()));
+        $this->assertGreaterThan(0, $this->comparator->compare(new stdClass(), new DateTime()));
     }
 
     public function testInvoke()

@@ -1,7 +1,16 @@
 {
     "name": "icecave/parity",
     "description": "A customizable deep comparison library.",
-    "keywords": ["compare", "comparison", "equal", "equality", "less", "greater", "sort", "sorting"],
+    "keywords": [
+        "compare",
+        "comparison",
+        "equal",
+        "equality",
+        "less",
+        "greater",
+        "sort",
+        "sorting"
+    ],
     "homepage": "https://github.com/IcecaveStudios/parity",
     "license": "MIT",
     "authors": [
@@ -19,12 +28,14 @@
         "eloquent/liberator": "~1",
         "icecave/archer": "~1"
     },
-    "suggest": {
-        "eloquent/asplode": "Drop-in exception-based error handling."
-    },
     "autoload": {
-        "psr-0": {
-            "Icecave\\Parity": "src"
+        "psr-4": {
+            "Icecave\\Parity\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0.x-dev"
         }
     }
 }

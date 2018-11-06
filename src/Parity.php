@@ -95,6 +95,82 @@ abstract class Parity
     }
 
     /**
+     * @param mixed $lhs     The first value to compare.
+     * @param mixed $rhs,... The second (and more) value(s) to compare.
+     *
+     * @return mixed
+     */
+    public static function min($lhs, $rhs)
+    {
+        return self::minSequence(func_get_args());
+    }
+
+    /**
+     * @param mixed $lhs     The first value to compare.
+     * @param mixed $rhs,... The second (and more) value(s) to compare.
+     *
+     * @return mixed
+     */
+    public static function max($lhs, $rhs)
+    {
+        return self::maxSequence(func_get_args());
+    }
+
+    /**
+     * @param array|Traversable $sequence The sequence to find the minimum value in.
+     * @param mixed             $default  The default miniumum value.
+     *
+     * @return mixed The minimum value in the sequence.
+     */
+    public static function minSequence($sequence, $default = null)
+    {
+        $minAssigned = false;
+        $min = null;
+
+        foreach ($sequence as $value) {
+            if (!$minAssigned) {
+                $minAssigned = true;
+                $min = $value;
+            } elseif (static::isLessThan($value, $min)) {
+                $min = $value;
+            }
+        }
+
+        if (!$minAssigned) {
+            return $default;
+        }
+
+        return $min;
+    }
+
+    /**
+     * @param array|Traversable $sequence The sequence to find the maximum value in.
+     * @param mixed             $default  The default maxiumum value.
+     *
+     * @return mixed The maximum value in the sequence.
+     */
+    public static function maxSequence($sequence, $default = null)
+    {
+        $maxAssigned = false;
+        $max = null;
+
+        foreach ($sequence as $value) {
+            if (!$maxAssigned) {
+                $maxAssigned = true;
+                $max = $value;
+            } elseif (static::isGreaterThan($value, $max)) {
+                $max = $value;
+            }
+        }
+
+        if (!$maxAssigned) {
+            return $default;
+        }
+
+        return $max;
+    }
+
+    /**
      * Get the internal Parity comparator.
      *
      * The comparator returned by this method in such as way as to enforce the
@@ -107,7 +183,7 @@ abstract class Parity
         if (null === self::$comparator) {
             self::$comparator = new ParityComparator(
                 new DeepComparator(
-                    new StrictPhpComparator
+                    new StrictPhpComparator()
                 )
             );
         }

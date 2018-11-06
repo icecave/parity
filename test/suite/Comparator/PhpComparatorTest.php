@@ -7,7 +7,7 @@ class PhpComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->comparator = new PhpComparator;
+        $this->comparator = new PhpComparator();
     }
 
     public function testCompare()
