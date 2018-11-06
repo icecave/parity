@@ -6,8 +6,7 @@
 
 **Parity** is a deep comparison library for PHP.
 
-* Install via [Composer](http://getcomposer.org) package [icecave/parity](https://packagist.org/packages/icecave/parity)
-* Read the [API documentation](http://icecavestudios.github.io/parity/artifacts/documentation/api/)
+    composer require recoil/recoil
 
 ## Rationale
 
