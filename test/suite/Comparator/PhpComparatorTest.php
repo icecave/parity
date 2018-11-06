@@ -1,9 +1,9 @@
 <?php
 namespace Icecave\Parity\Comparator;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class PhpComparatorTest extends PHPUnit_Framework_TestCase
+class PhpComparatorTest extends TestCase
 {
     public function setUp()
     {

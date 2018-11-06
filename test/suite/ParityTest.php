@@ -1,10 +1,10 @@
 <?php
 namespace Icecave\Parity;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ParityTest extends PHPUnit_Framework_TestCase
+class ParityTest extends TestCase
 {
     public function setUp()
     {

@@ -3,10 +3,10 @@ namespace Icecave\Parity\Comparator;
 
 use Eloquent\Liberator\Liberator;
 use Phake;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ParityComparatorTest extends PHPUnit_Framework_TestCase
+class ParityComparatorTest extends TestCase
 {
     public function setUp()
     {
