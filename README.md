@@ -1,8 +1,8 @@
 # Parity
 
-[![Build Status](http://img.shields.io/travis/IcecaveStudios/parity/master.svg?style=flat-square)](https://travis-ci.org/IcecaveStudios/parity)
-[![Code Coverage](https://img.shields.io/codecov/c/github/IcecaveStudios/parity/master.svg?style=flat-square)](https://codecov.io/github/IcecaveStudios/parity)
-[![Latest Version](http://img.shields.io/packagist/v/icecave/parity.svg?style=flat-square&label=semver)](https://semver.org)
+[![Build Status](http://img.shields.io/travis/icecave/parity/master.svg?style=flat-square)](https://travis-ci.org/icecave/parity)
+[![Code Coverage](https://img.shields.io/codecov/c/github/icecave/parity/master.svg?style=flat-square)](https://codecov.io/github/icecave/parity)
+[![Latest Version](http://img.shields.io/packagist/v/recoil/recoil.svg?style=flat-square&label=semver)](https://semver.org)
 
 **Parity** is a deep comparison library for PHP.
 
@@ -93,8 +93,3 @@ same type, such that the expression `3 < 3.5 < 4` holds true. Numeric strings ar
 1. <a name="caveat1"></a>Comparison of recursive objects is not a truly deterministic operation as objects are compared
 by their [object hash](http://php.net/manual/en/function.spl-object-hash.php) where deeper comparison would otherwise
 result in infinite recursion.
-
-<!-- references -->
-[Build Status]: http://img.shields.io/travis/IcecaveStudios/parity/develop.svg?style=flat-square
-[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/parity/develop.svg?style=flat-square
-[SemVer]: http://img.shields.io/:semver-1.0.0-brightgreen.svg?style=flat-square

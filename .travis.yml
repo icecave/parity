@@ -3,6 +3,7 @@ language: php
 php:
 - '7.1'
 - '7.2'
+- '7.3'
 - nightly
 matrix:
   fast_finish: true
@@ -16,8 +17,7 @@ script: phpdbg -qrr vendor/bin/phpunit
 after_script: bash <(curl -s https://codecov.io/bash)
 env:
   global:
-  - secure: qLa8aBWBXyBFMr1f7xo1TKiCGNllo5HtmLji7LEt5RvX7VzV29YJzFoy4f+ddAZOIUX4vwQVIzJRjrMx2ESJckORPiTF+sQFdt/Gi2Igz/8AVAH2Qj36IWln2aug1ZtvCZChwihW9ZF09v9JreZXYBIstLtGVc95yA5BIwoilhU=
-  - secure: VASLq8QOs5O9bmWXCDEsVy7gmMcvxYzfVvpKJLD7Kw70x4rTmqJ8HkeIJ/5ngjWMLzQlPiMEy/ACFbk0xYwB9bdP0n6mk/R01lIwGyPxqIFtRAhk70knAxehF3NR95Uc1T/OUJDFdM6QXJiB2ym5amBzYCKz6rbHLEttzS1+4tY=
+    secure: H0ZWjPYUbKpxE9nR0wA5S3oWG827F7daF473DGi40Afxej5h7kAWe2gcHHZrFxDwXR65RpcRw/kcL9hXld1aNtehZRES7wiktFLqExQTQn/Z5EYal8Jx9qFpq6Wb2Pvs0sF+9DO0QUNiDeVjt7g/fNsahAZ/MKzObIH0swNJOmg=
 cache:
   directories:
   - "$HOME/.composer/cache/files"

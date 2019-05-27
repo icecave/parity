@@ -11,7 +11,7 @@
         "sort",
         "sorting"
     ],
-    "homepage": "https://github.com/IcecaveStudios/parity",
+    "homepage": "https://github.com/icecave/parity",
     "license": "MIT",
     "authors": [
         {
@@ -21,8 +21,8 @@
         }
     ],
     "require": {
-        "php": "^7",
-        "icecave/repr": "^1"
+        "php": "^7.1",
+        "icecave/repr": "^2"
     },
     "require-dev": {
         "eloquent/liberator": "^1",
