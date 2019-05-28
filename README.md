@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/icecave/parity/master.svg?style=flat-square)](https://travis-ci.org/icecave/parity)
 [![Code Coverage](https://img.shields.io/codecov/c/github/icecave/parity/master.svg?style=flat-square)](https://codecov.io/github/icecave/parity)
-[![Latest Version](http://img.shields.io/packagist/v/recoil/recoil.svg?style=flat-square&label=semver)](https://semver.org)
+[![Latest Version](http://img.shields.io/packagist/v/icecave/parity.svg?style=flat-square&label=semver)](https://semver.org)
 
 **Parity** is a deep comparison library for PHP.
 
