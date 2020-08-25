@@ -7,7 +7,6 @@ use Icecave\Parity\Comparator\DeepComparator;
 use Icecave\Parity\Comparator\ParityComparator;
 use Icecave\Parity\Comparator\StrictPhpComparator;
 
-
 abstract class Parity
 {
     /**

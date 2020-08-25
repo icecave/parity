@@ -5,7 +5,7 @@ namespace Icecave\Parity;
 /**
  * An object that can be compared to any other value.
  */
-interface AnyComparableInterface
+interface AnyComparable
 {
     /**
      * Compare this object with another value, yielding a result according to

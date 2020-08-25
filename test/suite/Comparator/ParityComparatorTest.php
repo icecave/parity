@@ -33,7 +33,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareInversion()
     {
-        $lhs = Phake::mock('Icecave\Parity\AnyComparableInterface');
+        $lhs = Phake::mock('Icecave\Parity\AnyComparable');
 
         Phake::when($lhs)
             ->compare(Phake::anyParameters())
@@ -54,7 +54,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithAnyComparable()
     {
-        $comparable = Phake::mock('Icecave\Parity\AnyComparableInterface');
+        $comparable = Phake::mock('Icecave\Parity\AnyComparable');
 
         Phake::when($comparable)
             ->compare(Phake::anyParameters())

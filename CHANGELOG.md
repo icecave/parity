@@ -4,6 +4,7 @@
 
 - **[BC]** Drop support for PHP 7.1
 - **[BC]** Remove `PackageInfo` class
+- **[BC]** Rename `AnyComparableInterface` to `AnyComparable`
 
 ### 2.0.0 (2018-11-06)
 

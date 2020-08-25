@@ -2,7 +2,7 @@
 
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\AnyComparableInterface;
+use Icecave\Parity\AnyComparable;
 use Icecave\Parity\RestrictedComparableInterface;
 use Icecave\Parity\SelfComparableInterface;
 use Icecave\Parity\SubClassComparableInterface;
@@ -89,7 +89,7 @@ class ParityComparator implements ComparatorInterface
      */
     protected function canCompare($lhs, $rhs)
     {
-        if ($lhs instanceof AnyComparableInterface) {
+        if ($lhs instanceof AnyComparable) {
             return true;
         } elseif ($lhs instanceof RestrictedComparableInterface && $lhs->canCompare($rhs)) {
             return true;
