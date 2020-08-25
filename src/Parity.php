@@ -2,9 +2,11 @@
 
 namespace Icecave\Parity;
 
+use Icecave\Parity\Comparator\ComparatorInterface;
 use Icecave\Parity\Comparator\DeepComparator;
 use Icecave\Parity\Comparator\ParityComparator;
 use Icecave\Parity\Comparator\StrictPhpComparator;
+
 
 abstract class Parity
 {
@@ -24,7 +26,7 @@ abstract class Parity
      *
      * @return int The result of the comparison.
      */
-    public static function compare($lhs, $rhs)
+    public static function compare($lhs, $rhs): int
     {
         return self::comparator()->compare($lhs, $rhs);
     }
@@ -35,7 +37,7 @@ abstract class Parity
      *
      * @return bool True if $lhs == $rhs.
      */
-    public static function isEqualTo($lhs, $rhs)
+    public static function isEqualTo($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) === 0;
     }
@@ -46,7 +48,7 @@ abstract class Parity
      *
      * @return bool True if $lhs != $rhs.
      */
-    public static function isNotEqualTo($lhs, $rhs)
+    public static function isNotEqualTo($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) !== 0;
     }
@@ -57,7 +59,7 @@ abstract class Parity
      *
      * @return bool True if $lhs < $rhs.
      */
-    public static function isLessThan($lhs, $rhs)
+    public static function isLessThan($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) < 0;
     }
@@ -68,7 +70,7 @@ abstract class Parity
      *
      * @return bool True if $lhs > $rhs.
      */
-    public static function isGreaterThan($lhs, $rhs)
+    public static function isGreaterThan($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) > 0;
     }
@@ -79,7 +81,7 @@ abstract class Parity
      *
      * @return bool True if $lhs <= $rhs.
      */
-    public static function isLessThanOrEqualTo($lhs, $rhs)
+    public static function isLessThanOrEqualTo($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) <= 0;
     }
@@ -90,7 +92,7 @@ abstract class Parity
      *
      * @return bool True if $lhs >= $rhs.
      */
-    public static function isGreaterThanOrEqualTo($lhs, $rhs)
+    public static function isGreaterThanOrEqualTo($lhs, $rhs): bool
     {
         return static::compare($lhs, $rhs) >= 0;
     }
@@ -118,12 +120,12 @@ abstract class Parity
     }
 
     /**
-     * @param array|Traversable $sequence The sequence to find the minimum value in.
-     * @param mixed             $default  The default miniumum value.
+     * @param iterable $sequence The sequence to find the minimum value in.
+     * @param mixed    $default  The default miniumum value.
      *
      * @return mixed The minimum value in the sequence.
      */
-    public static function minSequence($sequence, $default = null)
+    public static function minSequence(iterable $sequence, $default = null)
     {
         $minAssigned = false;
         $min = null;
@@ -145,12 +147,12 @@ abstract class Parity
     }
 
     /**
-     * @param array|Traversable $sequence The sequence to find the maximum value in.
-     * @param mixed             $default  The default maxiumum value.
+     * @param iterable $sequence The sequence to find the maximum value in.
+     * @param mixed    $default  The default maxiumum value.
      *
      * @return mixed The maximum value in the sequence.
      */
-    public static function maxSequence($sequence, $default = null)
+    public static function maxSequence(iterable $sequence, $default = null)
     {
         $maxAssigned = false;
         $max = null;
@@ -179,7 +181,7 @@ abstract class Parity
      *
      * @return ComparatorInterface
      */
-    public static function comparator()
+    public static function comparator(): ComparatorInterface
     {
         if (null === self::$comparator) {
             self::$comparator = new ParityComparator(
