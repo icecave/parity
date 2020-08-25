@@ -2,9 +2,9 @@
 
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\SelfComparableInterface;
+use Icecave\Parity\SelfComparable;
 
-class SelfComparable implements SelfComparableInterface
+class SelfComparableImpl implements SelfComparable
 {
     public function compare($value)
     {

@@ -6,6 +6,7 @@
 - **[BC]** Remove `PackageInfo` class
 - **[BC]** Rename `AnyComparableInterface` to `AnyComparable`
 - **[BC]** Rename `ExtendedComparableInterface` to `ExtendedComparable`
+- **[BC]** Rename `SelfComparableInterface` to `SelfComparable`
 - **[BC]** Remove `AbstractExtendedComparable` class, use `ExtendedComparableTrait` instead
 
 ### 2.0.0 (2018-11-06)

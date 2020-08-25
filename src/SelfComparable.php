@@ -5,7 +5,7 @@ namespace Icecave\Parity;
 /**
  * An object that can compare itself to other objects of exactly the same type.
  */
-interface SelfComparableInterface
+interface SelfComparable
 {
     /**
      * Compare this object with another object of the same type, yielding a

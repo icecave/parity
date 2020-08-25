@@ -55,7 +55,7 @@ The core concept of **Parity** is the *comparable*. A comparable is any object t
 comparison with other values. The following refinements of the comparable concept are supported by the comparison engine:
 
 * [Restricted Comparable](src/RestrictedComparable.php): A comparable that can be queried as to which values it may be compared to.
-* [Self Comparable](src/SelfComparableInterface.php): A comparable that may only be compared to other objects of exactly the same type.
+* [Self Comparable](src/SelfComparable.php): A comparable that may only be compared to other objects of exactly the same type.
 * [Sub Class Comparable](src/SubClassComparableInterface.php): A comparable that may only be compared to other objects of the same (or a derived) type.
 * [Any Comparable](src/AnyComparable.php): A comparable that may be freely compared to values of any other type.
 

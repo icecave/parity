@@ -2,6 +2,6 @@
 
 namespace Icecave\Parity\Comparator;
 
-class SelfComparableSubClass extends SelfComparable
+class SelfComparableSubClass extends SelfComparableImpl
 {
 }

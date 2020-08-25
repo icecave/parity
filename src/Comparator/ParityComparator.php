@@ -4,7 +4,7 @@ namespace Icecave\Parity\Comparator;
 
 use Icecave\Parity\AnyComparable;
 use Icecave\Parity\RestrictedComparable;
-use Icecave\Parity\SelfComparableInterface;
+use Icecave\Parity\SelfComparable;
 use Icecave\Parity\SubClassComparableInterface;
 use ReflectionMethod;
 
@@ -93,7 +93,7 @@ class ParityComparator implements ComparatorInterface
             return true;
         } elseif ($lhs instanceof RestrictedComparable && $lhs->canCompare($rhs)) {
             return true;
-        } elseif ($lhs instanceof SelfComparableInterface) {
+        } elseif ($lhs instanceof SelfComparable) {
             return is_object($rhs)
                 && get_class($lhs) === get_class($rhs);
         } elseif ($lhs instanceof SubClassComparableInterface) {
