@@ -6,7 +6,7 @@ use Icecave\Parity\SelfComparable;
 
 class SelfComparableImpl implements SelfComparable
 {
-    public function compare($value)
+    public function compare($value): int
     {
         return -10;
     }

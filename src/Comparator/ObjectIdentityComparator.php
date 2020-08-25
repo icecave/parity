@@ -20,7 +20,7 @@ class ObjectIdentityComparator implements Comparator
      *
      * @return Comparator The comparator to use for non-objects.
      */
-    public function fallbackComparator()
+    public function fallbackComparator(): Comparator
     {
         return $this->fallbackComparator;
     }
@@ -44,7 +44,7 @@ class ObjectIdentityComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs)
+    public function compare($lhs, $rhs): int
     {
         if (!is_object($lhs) || !is_object($rhs)) {
             return $this->fallbackComparator()->compare($lhs, $rhs);
@@ -65,7 +65,7 @@ class ObjectIdentityComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs)
+    public function __invoke($lhs, $rhs): int
     {
         return $this->compare($lhs, $rhs);
     }

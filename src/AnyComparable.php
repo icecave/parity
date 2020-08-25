@@ -23,5 +23,5 @@ interface AnyComparable
      *
      * @return int The result of the comparison.
      */
-    public function compare($value);
+    public function compare($value): int;
 }

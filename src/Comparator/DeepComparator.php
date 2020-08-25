@@ -31,7 +31,7 @@ class DeepComparator implements Comparator
      *
      * @return Comparator The comparator to use when the operands are not arrays or objects.
      */
-    public function fallbackComparator()
+    public function fallbackComparator(): Comparator
     {
         return $this->fallbackComparator;
     }
@@ -55,7 +55,7 @@ class DeepComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs)
+    public function compare($lhs, $rhs): int
     {
         $visitationContext = [];
 
@@ -70,7 +70,7 @@ class DeepComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs)
+    public function __invoke($lhs, $rhs): int
     {
         return $this->compare($lhs, $rhs);
     }
@@ -82,7 +82,7 @@ class DeepComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    protected function compareValue($lhs, $rhs, &$visitationContext)
+    protected function compareValue($lhs, $rhs, &$visitationContext): int
     {
         if (is_array($lhs) && is_array($rhs)) {
             return $this->compareArray($lhs, $rhs, $visitationContext);
@@ -100,7 +100,7 @@ class DeepComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    protected function compareArray(array $lhs, array $rhs, &$visitationContext)
+    protected function compareArray(array $lhs, array $rhs, &$visitationContext): int
     {
         reset($lhs);
         reset($rhs);
@@ -144,7 +144,7 @@ class DeepComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    protected function compareObject($lhs, $rhs, &$visitationContext)
+    protected function compareObject($lhs, $rhs, &$visitationContext): int
     {
         if ($lhs === $rhs) {
             return 0;
@@ -173,7 +173,7 @@ class DeepComparator implements Comparator
      *
      * @return array<string,mixed>
      */
-    protected function objectProperties($object, &$visitationContext)
+    protected function objectProperties($object, &$visitationContext): array
     {
         $properties = [];
         $reflector = new ReflectionObject($object);
@@ -207,7 +207,7 @@ class DeepComparator implements Comparator
      *
      * @return bool
      */
-    protected function isNestedComparison($lhs, $rhs, &$visitationContext)
+    protected function isNestedComparison($lhs, $rhs, &$visitationContext): bool
     {
         $key = spl_object_hash($lhs) . ':' . spl_object_hash($rhs);
 

@@ -27,7 +27,7 @@
     "require-dev": {
         "eloquent/liberator": "^2",
         "friendsofphp/php-cs-fixer": "^2",
-        "phake/phake": "^1",
+        "phake/phake": "^3",
         "phpunit/phpunit": "^8"
     },
     "autoload": { "psr-4": { "Icecave\\Parity\\": "src" } },

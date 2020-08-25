@@ -3,6 +3,7 @@
 ### 3.0.0 (2020-08-25)
 
 - **[BC]** Drop support for PHP 7.1
+- **[Bc]** Add parameter and return type hints
 - **[BC]** Remove `PackageInfo` class
 - **[BC]** Rename `ComparatorInterface` to `Comparator`
 - **[BC]** Rename `AnyComparableInterface` to `AnyComparable`

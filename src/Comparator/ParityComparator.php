@@ -28,7 +28,7 @@ class ParityComparator implements Comparator
      *
      * @return Comparator The comparator to use when the operands do not provide their own comparison algorithm.
      */
-    public function fallbackComparator()
+    public function fallbackComparator(): Comparator
     {
         return $this->fallbackComparator;
     }
@@ -55,7 +55,7 @@ class ParityComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs)
+    public function compare($lhs, $rhs): int
     {
         if ($this->canCompare($lhs, $rhs)) {
             return $lhs->compare($rhs);
@@ -74,7 +74,7 @@ class ParityComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs)
+    public function __invoke($lhs, $rhs): int
     {
         return $this->compare($lhs, $rhs);
     }
@@ -87,7 +87,7 @@ class ParityComparator implements Comparator
      *
      * @return bool
      */
-    protected function canCompare($lhs, $rhs)
+    protected function canCompare($lhs, $rhs): bool
     {
         if ($lhs instanceof AnyComparable) {
             return true;
@@ -110,7 +110,7 @@ class ParityComparator implements Comparator
      *
      * @return string
      */
-    protected function compareImplementationClass($value)
+    protected function compareImplementationClass($value): string
     {
         $className = get_class($value);
 

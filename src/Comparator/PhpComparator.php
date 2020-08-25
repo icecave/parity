@@ -23,7 +23,7 @@ class PhpComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs)
+    public function compare($lhs, $rhs): int
     {
         if ($lhs < $rhs) {
             return -1;
@@ -42,7 +42,7 @@ class PhpComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs)
+    public function __invoke($lhs, $rhs): int
     {
         return $this->compare($lhs, $rhs);
     }

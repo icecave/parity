@@ -24,7 +24,7 @@ interface RestrictedComparable
      * @return int                              The result of the comparison.
      * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
-    public function compare($value);
+    public function compare($value): int;
 
     /**
      * Check if $this is able to be compared to another value.
@@ -36,5 +36,5 @@ interface RestrictedComparable
      *
      * @return bool True if $this can be compared to $value.
      */
-    public function canCompare($value);
+    public function canCompare($value): bool;
 }

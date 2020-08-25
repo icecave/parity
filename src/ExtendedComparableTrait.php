@@ -12,7 +12,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this == $value.
      */
-    public function isEqualTo($value)
+    public function isEqualTo($value): bool
     {
         return $this->compare($value) === 0;
     }
@@ -22,7 +22,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this != $value.
      */
-    public function isNotEqualTo($value)
+    public function isNotEqualTo($value): bool
     {
         return $this->compare($value) !== 0;
     }
@@ -32,7 +32,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this < $value.
      */
-    public function isLessThan($value)
+    public function isLessThan($value): bool
     {
         return $this->compare($value) < 0;
     }
@@ -42,7 +42,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this > $value.
      */
-    public function isGreaterThan($value)
+    public function isGreaterThan($value): bool
     {
         return $this->compare($value) > 0;
     }
@@ -52,7 +52,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this <= $value.
      */
-    public function isLessThanOrEqualTo($value)
+    public function isLessThanOrEqualTo($value): bool
     {
         return $this->compare($value) <= 0;
     }
@@ -62,7 +62,7 @@ trait ExtendedComparableTrait
      *
      * @return bool True if $this >= $value.
      */
-    public function isGreaterThanOrEqualTo($value)
+    public function isGreaterThanOrEqualTo($value): bool
     {
         return $this->compare($value) >= 0;
     }
@@ -72,5 +72,5 @@ trait ExtendedComparableTrait
      *
      * @return int
      */
-    abstract protected function compare($value);
+    abstract protected function compare($value): int;
 }

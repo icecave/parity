@@ -23,7 +23,7 @@ interface Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs);
+    public function compare($lhs, $rhs): int;
 
     /**
      * An alias for compare().
@@ -33,5 +33,5 @@ interface Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs);
+    public function __invoke($lhs, $rhs): int;
 }

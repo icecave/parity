@@ -36,7 +36,7 @@ class StrictPhpComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function compare($lhs, $rhs)
+    public function compare($lhs, $rhs): int
     {
         $lhsType = $this->transformTypeName($lhs);
         $rhsType = $this->transformTypeName($rhs);
@@ -61,7 +61,7 @@ class StrictPhpComparator implements Comparator
      *
      * @return int The result of the comparison.
      */
-    public function __invoke($lhs, $rhs)
+    public function __invoke($lhs, $rhs): int
     {
         return $this->compare($lhs, $rhs);
     }
@@ -71,7 +71,7 @@ class StrictPhpComparator implements Comparator
      *
      * @return string The effective type name to use when comparing types.
      */
-    private function transformTypeName($value)
+    private function transformTypeName($value): string
     {
         if (is_object($value)) {
             return 'object:' . get_class($value);

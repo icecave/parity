@@ -6,7 +6,7 @@ class ExtendedComparableTraitUser implements ExtendedComparable
 {
     use ExtendedComparableTrait;
 
-    public function compare($rhs)
+    public function compare($rhs): int
     {
         return 0 - $rhs;
     }

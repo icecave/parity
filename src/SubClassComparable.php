@@ -25,5 +25,5 @@ interface SubClassComparable
      * @return int                              The result of the comparison.
      * @throws Exception\NotComparableException if $value is not the same type as $this.
      */
-    public function compare($value);
+    public function compare($value): int;
 }
