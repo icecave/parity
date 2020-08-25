@@ -77,12 +77,12 @@ The following process is used by `Parity::compare($A, $B)` to determine which co
 Use `$A->compare($B)` if:
 
 1. `$A` is [Any Comparable](src/AnyComparable.php); or
-2. `$A` is [Restricted Comparable](src/RestrictedComparable.php) and `$A->canCompare($B)`; or
+2. `$A` is [Restricted Comparable](src/RestrictedComparable.php) and `$A->canCompare($B)` returns `true`; or
 3. `$A` is [Self Comparable](src/SelfComparable.php) and `$A` is exactly the same type as `$B`; or
 4. `$A` is [Sub Class Comparable](src/SubClassComparable.php) and `$B` is an instance of the class where `$A->compare()` is implemented
 
-If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
-the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
+If none of the conditions above are true, the comparison is tried in reverse with `$A` on the right hand side and `$B`
+on the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
 deep comparison.
 
 When comparing scalar types, integers and doubles (PHP's only true numeric types) are treated as though they were the
