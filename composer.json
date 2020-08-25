@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "icecave/repr": "^2"
     },
     "require-dev": {
@@ -34,7 +34,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.1"
+            "php": "7.2"
         }
     }
 }
