@@ -3,7 +3,10 @@
 namespace Icecave\Parity\Comparator;
 
 use Eloquent\Liberator\Liberator;
+use Icecave\Parity\AnyComparable;
 use Icecave\Parity\RestrictedComparable;
+use Icecave\Parity\SelfComparableInterface;
+use Icecave\Parity\SubClassComparableInterface;
 use Phake;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -12,7 +15,7 @@ class ParityComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::mock(__NAMESPACE__ . '\ComparatorInterface');
+        $this->fallbackComparator = Phake::mock(ComparatorInterface::class);
         $this->comparator = new ParityComparator($this->fallbackComparator);
 
         Phake::when($this->fallbackComparator)
@@ -34,7 +37,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareInversion()
     {
-        $lhs = Phake::mock('Icecave\Parity\AnyComparable');
+        $lhs = Phake::mock(AnyComparable::class);
 
         Phake::when($lhs)
             ->compare(Phake::anyParameters())
@@ -55,7 +58,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithAnyComparable()
     {
-        $comparable = Phake::mock('Icecave\Parity\AnyComparable');
+        $comparable = Phake::mock(AnyComparable::class);
 
         Phake::when($comparable)
             ->compare(Phake::anyParameters())
@@ -116,7 +119,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSelfComparable()
     {
-        $lhsComparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $lhsComparable = Phake::mock(SelfComparableInterface::class);
         $rhsComparable = clone $lhsComparable;
 
         Phake::when($lhsComparable)
@@ -145,7 +148,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSelfComparableAndNonObject()
     {
-        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $comparable = Phake::mock(SelfComparableInterface::class);
 
         $result = $this->comparator->compare($comparable, 10);
 
@@ -157,7 +160,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSelfComparableAndUnrelatedType()
     {
-        $comparable = Phake::mock('Icecave\Parity\SelfComparableInterface');
+        $comparable = Phake::mock(SelfComparableInterface::class);
 
         $result = $this->comparator->compare($comparable, new stdClass());
 
@@ -169,7 +172,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSubClassComparable()
     {
-        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $lhsComparable = Phake::mock(SubClassComparableInterface::class);
         $rhsComparable = clone $lhsComparable;
 
         Phake::when($lhsComparable)
@@ -198,7 +201,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSubClassComparableUsesCache()
     {
-        $lhsComparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $lhsComparable = Phake::mock(SubClassComparableInterface::class);
         $rhsComparable = clone $lhsComparable;
 
         Phake::when($lhsComparable)
@@ -216,7 +219,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSubClassComparableAndNonObject()
     {
-        $comparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $comparable = Phake::mock(SubClassComparableInterface::class);
 
         $result = $this->comparator->compare($comparable, 10);
 
@@ -228,7 +231,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithSubClassComparableAndUnrelatedType()
     {
-        $comparable = Phake::mock('Icecave\Parity\SubClassComparableInterface');
+        $comparable = Phake::mock(SubClassComparableInterface::class);
 
         $result = $this->comparator->compare($comparable, new stdClass());
 
