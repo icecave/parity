@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class PhpComparatorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->comparator = new PhpComparator();
     }

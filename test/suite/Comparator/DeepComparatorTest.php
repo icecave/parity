@@ -10,7 +10,7 @@ use stdClass;
 
 class DeepComparatorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->fallbackComparator = Phake::partialMock(__NAMESPACE__ . '\PhpComparator');
         $this->comparator = new DeepComparator($this->fallbackComparator);

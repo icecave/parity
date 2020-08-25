@@ -1,2 +1,3 @@
 /artifacts/
 /vendor/
+.phpunit.result.cache

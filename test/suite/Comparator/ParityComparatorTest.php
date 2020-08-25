@@ -8,7 +8,7 @@ use stdClass;
 
 class ParityComparatorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->fallbackComparator = Phake::mock(__NAMESPACE__ . '\ComparatorInterface');
         $this->comparator = new ParityComparator($this->fallbackComparator);

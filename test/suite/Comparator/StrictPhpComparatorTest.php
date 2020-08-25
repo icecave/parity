@@ -7,7 +7,7 @@ use stdClass;
 
 class StrictPhpComparatorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->comparator = new StrictPhpComparator();
     }

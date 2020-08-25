@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractExtendedComparableTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->comparable = Phake::partialMock(__NAMESPACE__ . '\AbstractExtendedComparable');
 

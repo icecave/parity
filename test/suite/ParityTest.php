@@ -6,7 +6,7 @@ use stdClass;
 
 class ParityTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->value  = 0;
         $this->less   = -1;

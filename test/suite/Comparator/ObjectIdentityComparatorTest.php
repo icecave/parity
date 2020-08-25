@@ -7,7 +7,7 @@ use stdClass;
 
 class ObjectIdentityComparatorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->fallbackComparator = Phake::mock(__NAMESPACE__ . '\ComparatorInterface');
         $this->comparator = new ObjectIdentityComparator($this->fallbackComparator);
