@@ -3,6 +3,7 @@
 namespace Icecave\Parity\Comparator;
 
 use Eloquent\Liberator\Liberator;
+use Icecave\Parity\RestrictedComparable;
 use Phake;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -70,7 +71,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithRestrictedComparable()
     {
-        $comparable = Phake::mock('Icecave\Parity\RestrictedComparableInterface');
+        $comparable = Phake::mock(RestrictedComparable::class);
 
         Phake::when($comparable)
             ->compare(Phake::anyParameters())
@@ -94,7 +95,7 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareWithRestrictedComparableAndUnsupportedOperand()
     {
-        $comparable = Phake::mock('Icecave\Parity\RestrictedComparableInterface');
+        $comparable = Phake::mock(RestrictedComparable::class);
 
         Phake::when($comparable)
             ->compare(Phake::anyParameters())

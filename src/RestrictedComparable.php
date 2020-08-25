@@ -5,7 +5,7 @@ namespace Icecave\Parity;
 /**
  * An object that can compare itself to a subset of other values.
  */
-interface RestrictedComparableInterface
+interface RestrictedComparable
 {
     /**
      * Compare this object with another value, yielding a result according to
