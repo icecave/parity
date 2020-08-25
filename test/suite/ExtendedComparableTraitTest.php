@@ -9,11 +9,7 @@ class ExtendedComparableTraitTest extends TestCase
 {
     public function setUp(): void
     {
-        if (version_compare(PHP_VERSION, '5.4', '<')) {
-            $this->markTestSkipped('This test requires PHP v5.4 or above.');
-        }
-
-        $this->trait = Phake::partialMock(__NAMESPACE__ . '\ExtendedComparable');
+        $this->trait = Phake::partialMock(ExtendedComparableTraitUser::class);
 
         $this->less  = -1;
         $this->same  = 0;

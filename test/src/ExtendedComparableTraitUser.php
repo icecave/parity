@@ -2,7 +2,7 @@
 
 namespace Icecave\Parity;
 
-class ExtendedComparable implements ExtendedComparableInterface
+class ExtendedComparableTraitUser implements ExtendedComparable
 {
     use ExtendedComparableTrait;
 

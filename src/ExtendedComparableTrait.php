@@ -3,7 +3,7 @@
 namespace Icecave\Parity;
 
 /**
- * Convenience trait that implements ExtendedComparableInterface
+ * Convenience trait that implements ExtendedComparable
  */
 trait ExtendedComparableTrait
 {

@@ -5,7 +5,7 @@ namespace Icecave\Parity;
 /**
  * Provides convenience methods for comparison operations.
  */
-interface ExtendedComparableInterface
+interface ExtendedComparable
 {
     /**
      * @param mixed $value The value to compare.
