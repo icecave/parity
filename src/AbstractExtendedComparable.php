@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 /**
@@ -13,7 +14,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this == $value.
+     * @return bool True if $this == $value.
      */
     public function isEqualTo($value)
     {
@@ -23,7 +24,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this != $value.
+     * @return bool True if $this != $value.
      */
     public function isNotEqualTo($value)
     {
@@ -33,7 +34,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this < $value.
+     * @return bool True if $this < $value.
      */
     public function isLessThan($value)
     {
@@ -43,7 +44,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this > $value.
+     * @return bool True if $this > $value.
      */
     public function isGreaterThan($value)
     {
@@ -53,7 +54,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this <= $value.
+     * @return bool True if $this <= $value.
      */
     public function isLessThanOrEqualTo($value)
     {
@@ -63,7 +64,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this >= $value.
+     * @return bool True if $this >= $value.
      */
     public function isGreaterThanOrEqualTo($value)
     {
@@ -73,7 +74,7 @@ abstract class AbstractExtendedComparable implements ExtendedComparableInterface
     /**
      * @param mixed $value The value to compare.
      *
-     * @return integer
+     * @return int
      */
     abstract protected function compare($value);
 }

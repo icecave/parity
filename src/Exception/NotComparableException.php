@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Exception;
 
 use Exception;

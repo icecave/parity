@@ -26,6 +26,7 @@
     },
     "require-dev": {
         "eloquent/liberator": "^2",
+        "friendsofphp/php-cs-fixer": "^2",
         "phake/phake": "^1",
         "phpunit/phpunit": "^8"
     },

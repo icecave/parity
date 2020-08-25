@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 use Icecave\Parity\SelfComparableInterface;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 /**
@@ -20,7 +21,7 @@ class PhpComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function compare($lhs, $rhs)
     {
@@ -39,7 +40,7 @@ class PhpComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function __invoke($lhs, $rhs)
     {

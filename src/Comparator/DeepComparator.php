@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 use ReflectionObject;
@@ -15,7 +16,7 @@ class DeepComparator implements ComparatorInterface
      * comparison of objects.
      *
      * @param ComparatorInterface $fallbackComparator    The comparator to use when the operands are not arrays or objects.
-     * @param boolean             $relaxClassComparisons True to relax class name comparisons; false to compare strictly.
+     * @param bool                $relaxClassComparisons True to relax class name comparisons; false to compare strictly.
      */
     public function __construct(
         ComparatorInterface $fallbackComparator,
@@ -52,11 +53,11 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function compare($lhs, $rhs)
     {
-        $visitationContext = array();
+        $visitationContext = [];
 
         return $this->compareValue($lhs, $rhs, $visitationContext);
     }
@@ -67,7 +68,7 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function __invoke($lhs, $rhs)
     {
@@ -79,7 +80,7 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $rhs
      * @param mixed &$visitationContext
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     protected function compareValue($lhs, $rhs, &$visitationContext)
     {
@@ -97,7 +98,7 @@ class DeepComparator implements ComparatorInterface
      * @param array $rhs
      * @param mixed &$visitationContext
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     protected function compareArray(array $lhs, array $rhs, &$visitationContext)
     {
@@ -141,7 +142,7 @@ class DeepComparator implements ComparatorInterface
      * @param object $rhs
      * @param mixed  &$visitationContext
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     protected function compareObject($lhs, $rhs, &$visitationContext)
     {
@@ -174,7 +175,7 @@ class DeepComparator implements ComparatorInterface
      */
     protected function objectProperties($object, &$visitationContext)
     {
-        $properties = array();
+        $properties = [];
         $reflector = new ReflectionObject($object);
 
         while ($reflector) {
@@ -204,7 +205,7 @@ class DeepComparator implements ComparatorInterface
      * @param mixed $rhs
      * @param mixed &$visitationContext
      *
-     * @return boolean
+     * @return bool
      */
     protected function isNestedComparison($lhs, $rhs, &$visitationContext)
     {

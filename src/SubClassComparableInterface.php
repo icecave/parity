@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 /**
@@ -21,7 +22,7 @@ interface SubClassComparableInterface
      *
      * @param object $value The object to compare.
      *
-     * @return integer                          The result of the comparison.
+     * @return int                              The result of the comparison.
      * @throws Exception\NotComparableException if $value is not the same type as $this.
      */
     public function compare($value);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 use DateTime;
@@ -22,15 +23,15 @@ class DeepComparatorTest extends TestCase
             0,
             call_user_func(
                 $this->comparator,
-                array(1, 2, 3),
-                array(1, 2, 3)
+                [1, 2, 3],
+                [1, 2, 3]
             )
         );
     }
 
     public function testCompareWithObjectReferences()
     {
-        $value = (object) array('foo' => 'bar');
+        $value = (object) ['foo' => 'bar'];
 
         $result = $this->comparator->compare($value, $value);
 
@@ -44,7 +45,7 @@ class DeepComparatorTest extends TestCase
 
     public function testCompareWithEmptyArrays()
     {
-        $result = $this->comparator->compare(array(), array());
+        $result = $this->comparator->compare([], []);
 
         Phake::verifyNoInteraction($this->fallbackComparator);
 
@@ -56,8 +57,8 @@ class DeepComparatorTest extends TestCase
         $this->assertSame(
             0,
             $this->comparator->compare(
-                array(1, 2, 3),
-                array(1, 2, 3)
+                [1, 2, 3],
+                [1, 2, 3]
             )
         );
     }
@@ -67,8 +68,8 @@ class DeepComparatorTest extends TestCase
         $this->assertSame(
             0,
             $this->comparator->compare(
-                array('a' => 1, 'b' => 2, 'c' => 3),
-                array('a' => 1, 'b' => 2, 'c' => 3)
+                ['a' => 1, 'b' => 2, 'c' => 3],
+                ['a' => 1, 'b' => 2, 'c' => 3]
             )
         );
     }
@@ -78,16 +79,16 @@ class DeepComparatorTest extends TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                array(1, 2),
-                array(1, 2, 3)
+                [1, 2],
+                [1, 2, 3]
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                array(1, 2, 3),
-                array(1, 2)
+                [1, 2, 3],
+                [1, 2]
             )
         );
     }
@@ -97,16 +98,16 @@ class DeepComparatorTest extends TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                array(1, 2, 3),
-                array(1, 3)
+                [1, 2, 3],
+                [1, 3]
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                array(1, 3),
-                array(1, 2, 3)
+                [1, 3],
+                [1, 2, 3]
             )
         );
     }
@@ -116,16 +117,16 @@ class DeepComparatorTest extends TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                array('a' => 1),
-                array('b' => 1)
+                ['a' => 1],
+                ['b' => 1]
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                array('b' => 1),
-                array('a' => 1)
+                ['b' => 1],
+                ['a' => 1]
             )
         );
     }
@@ -135,8 +136,8 @@ class DeepComparatorTest extends TestCase
         $this->assertSame(
             0,
             $this->comparator->compare(
-                (object) array('a' => 1, 'b' => 2, 'c' => 3),
-                (object) array('a' => 1, 'b' => 2, 'c' => 3)
+                (object) ['a' => 1, 'b' => 2, 'c' => 3],
+                (object) ['a' => 1, 'b' => 2, 'c' => 3]
             )
         );
     }
@@ -146,16 +147,16 @@ class DeepComparatorTest extends TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                (object) array('a' => 1, 'b' => 2),
-                (object) array('a' => 1, 'b' => 2, 'c' => 3)
+                (object) ['a' => 1, 'b' => 2],
+                (object) ['a' => 1, 'b' => 2, 'c' => 3]
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                (object) array('a' => 1, 'b' => 2, 'c' => 3),
-                (object) array('a' => 1, 'b' => 2)
+                (object) ['a' => 1, 'b' => 2, 'c' => 3],
+                (object) ['a' => 1, 'b' => 2]
             )
         );
     }
@@ -165,16 +166,16 @@ class DeepComparatorTest extends TestCase
         $this->assertLessThan(
             0,
             $this->comparator->compare(
-                (object) array('a' => 1, 'b' => 2, 'c' => 3),
-                (object) array('a' => 1, 'b' => 3)
+                (object) ['a' => 1, 'b' => 2, 'c' => 3],
+                (object) ['a' => 1, 'b' => 3]
             )
         );
 
         $this->assertGreaterThan(
             0,
             $this->comparator->compare(
-                (object) array('a' => 1, 'b' => 3),
-                (object) array('a' => 1, 'b' => 2, 'c' => 3)
+                (object) ['a' => 1, 'b' => 3],
+                (object) ['a' => 1, 'b' => 2, 'c' => 3]
             )
         );
     }
@@ -341,9 +342,9 @@ class DeepComparatorTest extends TestCase
     {
         $shared = new ChildObject('foo', 'bar');
 
-        $obj1 = new ParentObject(array('a', 'b'), array($shared, 'foo'));
-        $obj2 = new ParentObject(array('a', 'b'), array($shared, 'foo'));
-        $obj3 = new ParentObject(array('x', 'y'), array($shared, 'foo'));
+        $obj1 = new ParentObject(['a', 'b'], [$shared, 'foo']);
+        $obj2 = new ParentObject(['a', 'b'], [$shared, 'foo']);
+        $obj3 = new ParentObject(['x', 'y'], [$shared, 'foo']);
 
         $this->assertSame(0, $this->comparator->compare($obj1, $obj1));
         $this->assertSame(0, $this->comparator->compare($obj1, $obj2));

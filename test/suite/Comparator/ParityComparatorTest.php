@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 use Eloquent\Liberator\Liberator;
@@ -24,8 +25,8 @@ class ParityComparatorTest extends TestCase
             -1,
             call_user_func(
                 $this->comparator,
-                array(1, 2, 3),
-                array(1, 2, 3)
+                [1, 2, 3],
+                [1, 2, 3]
             )
         );
     }

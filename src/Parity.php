@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 use Icecave\Parity\Comparator\DeepComparator;
@@ -21,7 +22,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public static function compare($lhs, $rhs)
     {
@@ -32,7 +33,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs == $rhs.
+     * @return bool True if $lhs == $rhs.
      */
     public static function isEqualTo($lhs, $rhs)
     {
@@ -43,7 +44,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs != $rhs.
+     * @return bool True if $lhs != $rhs.
      */
     public static function isNotEqualTo($lhs, $rhs)
     {
@@ -54,7 +55,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs < $rhs.
+     * @return bool True if $lhs < $rhs.
      */
     public static function isLessThan($lhs, $rhs)
     {
@@ -65,7 +66,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs > $rhs.
+     * @return bool True if $lhs > $rhs.
      */
     public static function isGreaterThan($lhs, $rhs)
     {
@@ -76,7 +77,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs <= $rhs.
+     * @return bool True if $lhs <= $rhs.
      */
     public static function isLessThanOrEqualTo($lhs, $rhs)
     {
@@ -87,7 +88,7 @@ abstract class Parity
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return boolean True if $lhs >= $rhs.
+     * @return bool True if $lhs >= $rhs.
      */
     public static function isGreaterThanOrEqualTo($lhs, $rhs)
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 /**
@@ -20,7 +21,7 @@ interface AnyComparableInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function compare($value);
 }

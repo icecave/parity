@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity\Comparator;
 
 /**
@@ -12,12 +13,13 @@ class StrictPhpComparator implements ComparatorInterface
      * though they were the same type. This allows for natural ordering of
      * numbers, ie int(3) < double(4.5) < int(5).
      *
-     * @param boolean $relaxNumericComparisons True to relax numeric comparisons; false to compare strictly.
+     * @param bool $relaxNumericComparisons True to relax numeric comparisons; false to compare strictly.
      */
     public function __construct($relaxNumericComparisons = true)
     {
         $this->relaxNumericComparisons = $relaxNumericComparisons;
     }
+
     /**
      * Compare two values, yielding a result according to the following table:
      *
@@ -32,7 +34,7 @@ class StrictPhpComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function compare($lhs, $rhs)
     {
@@ -57,7 +59,7 @@ class StrictPhpComparator implements ComparatorInterface
      * @param mixed $lhs The first value to compare.
      * @param mixed $rhs The second value to compare.
      *
-     * @return integer The result of the comparison.
+     * @return int The result of the comparison.
      */
     public function __invoke($lhs, $rhs)
     {

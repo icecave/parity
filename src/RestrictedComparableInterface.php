@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 /**
@@ -20,7 +21,7 @@ interface RestrictedComparableInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return integer                          The result of the comparison.
+     * @return int                              The result of the comparison.
      * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
      */
     public function compare($value);
@@ -33,7 +34,7 @@ interface RestrictedComparableInterface
      *
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this can be compared to $value.
+     * @return bool True if $this can be compared to $value.
      */
     public function canCompare($value);
 }

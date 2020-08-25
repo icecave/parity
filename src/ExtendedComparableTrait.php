@@ -1,4 +1,5 @@
 <?php
+
 namespace Icecave\Parity;
 
 /**
@@ -9,7 +10,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this == $value.
+     * @return bool True if $this == $value.
      */
     public function isEqualTo($value)
     {
@@ -19,7 +20,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this != $value.
+     * @return bool True if $this != $value.
      */
     public function isNotEqualTo($value)
     {
@@ -29,7 +30,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this < $value.
+     * @return bool True if $this < $value.
      */
     public function isLessThan($value)
     {
@@ -39,7 +40,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this > $value.
+     * @return bool True if $this > $value.
      */
     public function isGreaterThan($value)
     {
@@ -49,7 +50,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this <= $value.
+     * @return bool True if $this <= $value.
      */
     public function isLessThanOrEqualTo($value)
     {
@@ -59,7 +60,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return boolean True if $this >= $value.
+     * @return bool True if $this >= $value.
      */
     public function isGreaterThanOrEqualTo($value)
     {
@@ -69,7 +70,7 @@ trait ExtendedComparableTrait
     /**
      * @param mixed $value The value to compare.
      *
-     * @return integer
+     * @return int
      */
     abstract protected function compare($value);
 }
