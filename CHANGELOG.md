@@ -2,8 +2,12 @@
 
 ### 3.0.0 (2020-08-25)
 
+This release contains several backwards compatibility breaks that will effect
+more advanced usage of Parity, however the common usage via `Parity::compare()`
+is unchanged.
+
 - **[BC]** Drop support for PHP 7.1
-- **[Bc]** Add parameter and return type hints
+- **[BC]** Add parameter and return type hints
 - **[BC]** Remove `PackageInfo` class
 - **[BC]** Rename `ComparatorInterface` to `Comparator`
 - **[BC]** Rename `AnyComparableInterface` to `AnyComparable`
