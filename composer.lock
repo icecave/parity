@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5ad3c733cf4ca39efa96f3114a84707",
+    "content-hash": "a187f6c3a832615d044452c36b322d00",
     "packages": [
         {
             "name": "icecave/repr",
@@ -130,29 +130,29 @@
         },
         {
             "name": "eloquent/liberator",
-            "version": "1.1.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/liberator.git",
-                "reference": "a85435066850ab47acc61296c5d20732ff4c9655"
+                "reference": "8d71b1ff4794b09fc7d0e205ee994780412d3a1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/liberator/zipball/a85435066850ab47acc61296c5d20732ff4c9655",
-                "reference": "a85435066850ab47acc61296c5d20732ff4c9655",
+                "url": "https://api.github.com/repos/eloquent/liberator/zipball/8d71b1ff4794b09fc7d0e205ee994780412d3a1f",
+                "reference": "8d71b1ff4794b09fc7d0e205ee994780412d3a1f",
                 "shasum": ""
             },
             "require": {
-                "eloquent/pops": "~3",
-                "php": ">=5.3.0"
+                "eloquent/pops": "~4.1.0",
+                "php": ">=5.3"
             },
             "require-dev": {
-                "icecave/archer": "~0.2"
+                "icecave/archer": "~1"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Eloquent\\Liberator": "src"
+                "psr-4": {
+                    "Eloquent\\Liberator\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -177,32 +177,32 @@
                 "proxy",
                 "reflection"
             ],
-            "time": "2013-03-03T23:02:47+00:00"
+            "time": "2014-02-09T12:27:12+00:00"
         },
         {
             "name": "eloquent/pops",
-            "version": "3.1.1",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/pops.git",
-                "reference": "b14090a3478f544d1b3a3b9389cb03415cf4f37f"
+                "reference": "80dbee5422347dc581d38ade92001509dce34926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/pops/zipball/b14090a3478f544d1b3a3b9389cb03415cf4f37f",
-                "reference": "b14090a3478f544d1b3a3b9389cb03415cf4f37f",
+                "url": "https://api.github.com/repos/eloquent/pops/zipball/80dbee5422347dc581d38ade92001509dce34926",
+                "reference": "80dbee5422347dc581d38ade92001509dce34926",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3"
             },
             "require-dev": {
-                "icecave/archer": "~0.2"
+                "icecave/archer": "~1"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Eloquent\\Pops": "src"
+                "psr-4": {
+                    "Eloquent\\Pops\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -219,12 +219,13 @@
             "description": "PHP object proxy system.",
             "homepage": "https://github.com/eloquent/pops",
             "keywords": [
-                "escaping",
+                "method",
                 "object",
+                "property",
                 "proxy"
             ],
             "abandoned": true,
-            "time": "2013-03-04T10:10:43+00:00"
+            "time": "2014-02-09T10:09:42+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -2,7 +2,7 @@
 
 ### 3.0.0 (2020-08-25)
 
-- **[BC]** Drop support for PHP <7.2
+- **[BC]** Bump minimum PHP version to 7.2
 
 ### 2.0.0 (2018-11-06)
 

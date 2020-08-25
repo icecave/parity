@@ -25,7 +25,7 @@
         "icecave/repr": "^2"
     },
     "require-dev": {
-        "eloquent/liberator": "^1",
+        "eloquent/liberator": "^2",
         "phake/phake": "^1",
         "phpunit/phpunit": "^8"
     },
