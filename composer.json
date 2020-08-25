@@ -16,13 +16,13 @@
     "authors": [
         {
             "name": "James Harris",
-            "email": "james.harris@icecave.com.au",
+            "email": "mailjamesharris@gmail.com",
             "homepage": "https://github.com/jmalloc"
         }
     ],
     "require": {
         "php": "^7.2",
-        "icecave/repr": "^2"
+        "icecave/repr": "^3"
     },
     "require-dev": {
         "eloquent/liberator": "^2",

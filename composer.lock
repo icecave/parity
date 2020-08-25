@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a187f6c3a832615d044452c36b322d00",
+    "content-hash": "89ca16809eac107b281f44a86de2477a",
     "packages": [
         {
             "name": "icecave/repr",
-            "version": "2.0.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/repr.git",
-                "reference": "87b7de87d0323c6ab99116bac3e66c4522c06be0"
+                "reference": "85318d740977d9fb2e1afb1e5544e12a2c709020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/repr/zipball/87b7de87d0323c6ab99116bac3e66c4522c06be0",
-                "reference": "87b7de87d0323c6ab99116bac3e66c4522c06be0",
+                "url": "https://api.github.com/repos/icecave/repr/zipball/85318d740977d9fb2e1afb1e5544e12a2c709020",
+                "reference": "85318d740977d9fb2e1afb1e5544e12a2c709020",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "require-dev": {
+                "eloquent/phony-phpunit": "^6",
                 "friendsofphp/php-cs-fixer": "^2",
-                "phake/phake": "^1",
-                "phpunit/phpunit": "^7"
+                "phpunit/phpunit": "^8"
             },
             "type": "library",
             "autoload": {
@@ -54,7 +54,7 @@
                 "representation",
                 "string"
             ],
-            "time": "2019-10-23T03:45:42+00:00"
+            "time": "2020-08-25T01:44:42+00:00"
         }
     ],
     "packages-dev": [
