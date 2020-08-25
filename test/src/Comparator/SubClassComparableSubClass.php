@@ -2,6 +2,6 @@
 
 namespace Icecave\Parity\Comparator;
 
-class SubClassComparableSubClass extends SubClassComparable
+class SubClassComparableSubClass extends SubClassComparableImpl
 {
 }

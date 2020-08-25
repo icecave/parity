@@ -6,7 +6,7 @@ namespace Icecave\Parity;
  * An object that can compare itself to other objects that are the same type, or
  * derived from the type in which compare() is implemented.
  */
-interface SubClassComparableInterface
+interface SubClassComparable
 {
     /**
      * Compare this object with another object of the same type, yielding a

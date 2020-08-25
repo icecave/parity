@@ -2,9 +2,9 @@
 
 namespace Icecave\Parity\Comparator;
 
-use Icecave\Parity\SubClassComparableInterface;
+use Icecave\Parity\SubClassComparable;
 
-class SubClassComparable implements SubClassComparableInterface
+class SubClassComparableImpl implements SubClassComparable
 {
     public function compare($value)
     {

@@ -56,7 +56,7 @@ comparison with other values. The following refinements of the comparable concep
 
 * [Restricted Comparable](src/RestrictedComparable.php): A comparable that can be queried as to which values it may be compared to.
 * [Self Comparable](src/SelfComparable.php): A comparable that may only be compared to other objects of exactly the same type.
-* [Sub Class Comparable](src/SubClassComparableInterface.php): A comparable that may only be compared to other objects of the same (or a derived) type.
+* [Sub Class Comparable](src/SubClassComparable.php): A comparable that may only be compared to other objects of the same (or a derived) type.
 * [Any Comparable](src/AnyComparable.php): A comparable that may be freely compared to values of any other type.
 
 ### Comparator
@@ -78,8 +78,8 @@ Use `$A->compare(B)` if:
 
 1. `$A` is [Any Comparable](src/AnyComparable.php); or
 2. `$A` is [Restricted Comparable](src/RestrictedComparable.php) and `$A->canCompare($B)`; or
-3. `$A` is [Self Comparable](src/SubClassComparableInterface.php) and `$A` is exactly the same type as `$B`; or
-4. `$A` is [Sub Class Comparable](src/SubClassComparableInterface.php) and `$B` is an instance of the class where `$A->compare()` is implemented
+3. `$A` is [Self Comparable](src/SelfComparable.php) and `$A` is exactly the same type as `$B`; or
+4. `$A` is [Sub Class Comparable](src/SubClassComparable.php) and `$B` is an instance of the class where `$A->compare()` is implemented
 
 If none of the conditions above are true, the comparison is tried in reverse with $A on the right hand side and $B on
 the left; the result is also inverted. If still no comparison is possible, **Parity** falls back to a strictly-typed
