@@ -5,7 +5,7 @@ namespace Icecave\Parity\Comparator;
 /**
  * An object that can compare two values.
  */
-interface ComparatorInterface
+interface Comparator
 {
     /**
      * Compare two values, yielding a result according to the following table:

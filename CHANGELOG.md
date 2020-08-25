@@ -4,6 +4,7 @@
 
 - **[BC]** Drop support for PHP 7.1
 - **[BC]** Remove `PackageInfo` class
+- **[BC]** Rename `ComparatorInterface` to `Comparator`
 - **[BC]** Rename `AnyComparableInterface` to `AnyComparable`
 - **[BC]** Rename `ExtendedComparableInterface` to `ExtendedComparable`
 - **[BC]** Rename `SelfComparableInterface` to `SelfComparable`

@@ -9,17 +9,17 @@ use ReflectionObject;
  *
  * Comparison of objects is recursion-safe.
  */
-class DeepComparator implements ComparatorInterface
+class DeepComparator implements Comparator
 {
     /**
      * If $relaxClassComparisons is true, class names are not included in the
      * comparison of objects.
      *
-     * @param ComparatorInterface $fallbackComparator    The comparator to use when the operands are not arrays or objects.
-     * @param bool                $relaxClassComparisons True to relax class name comparisons; false to compare strictly.
+     * @param Comparator $fallbackComparator    The comparator to use when the operands are not arrays or objects.
+     * @param bool       $relaxClassComparisons True to relax class name comparisons; false to compare strictly.
      */
     public function __construct(
-        ComparatorInterface $fallbackComparator,
+        Comparator $fallbackComparator,
         $relaxClassComparisons = false
     ) {
         $this->fallbackComparator = $fallbackComparator;
@@ -29,7 +29,7 @@ class DeepComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return ComparatorInterface The comparator to use when the operands are not arrays or objects.
+     * @return Comparator The comparator to use when the operands are not arrays or objects.
      */
     public function fallbackComparator()
     {

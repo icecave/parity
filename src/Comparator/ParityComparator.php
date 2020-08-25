@@ -12,12 +12,12 @@ use ReflectionMethod;
  * A comparator that dispatches comparison operations to the appropriate
  * algorithm based on the comparable interfaces that the operands implement.
  */
-class ParityComparator implements ComparatorInterface
+class ParityComparator implements Comparator
 {
     /**
-     * @param ComparatorInterface $fallbackComparator The comparator to use when the operands do not provide their own comparison algorithm.
+     * @param Comparator $fallbackComparator The comparator to use when the operands do not provide their own comparison algorithm.
      */
-    public function __construct(ComparatorInterface $fallbackComparator)
+    public function __construct(Comparator $fallbackComparator)
     {
         $this->fallbackComparator = $fallbackComparator;
         $this->compareImplementationClasses = [];
@@ -26,7 +26,7 @@ class ParityComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return ComparatorInterface The comparator to use when the operands do not provide their own comparison algorithm.
+     * @return Comparator The comparator to use when the operands do not provide their own comparison algorithm.
      */
     public function fallbackComparator()
     {

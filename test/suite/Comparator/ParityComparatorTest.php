@@ -15,7 +15,7 @@ class ParityComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::mock(ComparatorInterface::class);
+        $this->fallbackComparator = Phake::mock(Comparator::class);
         $this->comparator = new ParityComparator($this->fallbackComparator);
 
         Phake::when($this->fallbackComparator)

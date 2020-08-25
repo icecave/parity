@@ -10,7 +10,7 @@ class ObjectIdentityComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::mock(__NAMESPACE__ . '\ComparatorInterface');
+        $this->fallbackComparator = Phake::mock(Comparator::class);
         $this->comparator = new ObjectIdentityComparator($this->fallbackComparator);
 
         Phake::when($this->fallbackComparator)

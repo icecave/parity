@@ -5,12 +5,12 @@ namespace Icecave\Parity\Comparator;
 /**
  * A comparator that compares objects by identity.
  */
-class ObjectIdentityComparator implements ComparatorInterface
+class ObjectIdentityComparator implements Comparator
 {
     /**
-     * @param ComparatorInterface $fallbackComparator The comparator to use for non-objects.
+     * @param Comparator $fallbackComparator The comparator to use for non-objects.
      */
-    public function __construct(ComparatorInterface $fallbackComparator)
+    public function __construct(Comparator $fallbackComparator)
     {
         $this->fallbackComparator = $fallbackComparator;
     }
@@ -18,7 +18,7 @@ class ObjectIdentityComparator implements ComparatorInterface
     /**
      * Fetch the fallback comparator.
      *
-     * @return ComparatorInterface The comparator to use for non-objects.
+     * @return Comparator The comparator to use for non-objects.
      */
     public function fallbackComparator()
     {

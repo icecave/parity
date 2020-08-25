@@ -5,7 +5,7 @@ namespace Icecave\Parity\Comparator;
 /**
  * A comparator that compares using the built-in PHP less than operator.
  */
-class PhpComparator implements ComparatorInterface
+class PhpComparator implements Comparator
 {
     /**
      * Compare two values, yielding a result according to the following table:

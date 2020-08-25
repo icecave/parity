@@ -6,7 +6,7 @@ namespace Icecave\Parity\Comparator;
  * A comparator that approximates a type-strict version of the built-in PHP
  * comparison operations.
  */
-class StrictPhpComparator implements ComparatorInterface
+class StrictPhpComparator implements Comparator
 {
     /**
      * If $relaxNumericComparisons is true, integers and doubles are compared as

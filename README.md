@@ -61,7 +61,7 @@ comparison with other values. The following refinements of the comparable concep
 
 ### Comparator
 
-A *[Comparator](src/Comparator/ComparatorInterface.php)* defines comparison behavior for values other
+A *[Comparator](src/Comparator/Comparator.php)* defines comparison behavior for values other
 than itself. **Parity** provides the following comparator implementations:
 
 * [Parity Comparator](src/Comparator/ParityComparator.php): Implements the logic surrounding the comparable concepts described in the section above.

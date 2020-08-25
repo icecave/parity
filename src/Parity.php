@@ -2,7 +2,7 @@
 
 namespace Icecave\Parity;
 
-use Icecave\Parity\Comparator\ComparatorInterface;
+use Icecave\Parity\Comparator\Comparator;
 use Icecave\Parity\Comparator\DeepComparator;
 use Icecave\Parity\Comparator\ParityComparator;
 use Icecave\Parity\Comparator\StrictPhpComparator;
@@ -178,9 +178,9 @@ abstract class Parity
      * The comparator returned by this method in such as way as to enforce the
      * documented rules of Parity's comparison engine.
      *
-     * @return ComparatorInterface
+     * @return Comparator
      */
-    public static function comparator(): ComparatorInterface
+    public static function comparator(): Comparator
     {
         if (null === self::$comparator) {
             self::$comparator = new ParityComparator(

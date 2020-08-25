@@ -13,7 +13,7 @@ class DeepComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::partialMock(__NAMESPACE__ . '\PhpComparator');
+        $this->fallbackComparator = Phake::partialMock(PhpComparator::class);
         $this->comparator = new DeepComparator($this->fallbackComparator);
     }
 
