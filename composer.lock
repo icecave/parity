@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf2a8b420fe1898c642482aca4d367ad",
+    "content-hash": "cbec4f8c243090e02d1334b45d9c69d8",
     "packages": [
         {
             "name": "icecave/repr",
-            "version": "3.0.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/icecave/repr.git",
-                "reference": "85318d740977d9fb2e1afb1e5544e12a2c709020"
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/icecave/repr/zipball/85318d740977d9fb2e1afb1e5544e12a2c709020",
-                "reference": "85318d740977d9fb2e1afb1e5544e12a2c709020",
+                "url": "https://api.github.com/repos/icecave/repr/zipball/3dad35ee43394404ae0f1926d754e7b7820da8e4",
+                "reference": "3dad35ee43394404ae0f1926d754e7b7820da8e4",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "representation",
                 "string"
             ],
-            "time": "2020-08-25T01:44:42+00:00"
+            "time": "2020-08-25T02:05:11+00:00"
         }
     ],
     "packages-dev": [

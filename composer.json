@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "icecave/repr": "^3"
+        "icecave/repr": "^4"
     },
     "require-dev": {
         "eloquent/liberator": "^2",
