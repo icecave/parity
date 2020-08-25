@@ -56,7 +56,7 @@ comparison with other values. The following refinements of the comparable concep
 
 * [Restricted Comparable](src/RestrictedComparable.php): A comparable that can be queried as to which values it may be compared to.
 * [Self Comparable](src/SelfComparable.php): A comparable that may only be compared to other objects of exactly the same type.
-* [Sub Class Comparable](src/SubClassComparable.php): A comparable that may only be compared to other objects of the same (or a derived) type.
+* [Sub Class Comparable](src/SubClassComparable.php): A comparable that may only be compared to other objects of the same or a derived type.
 * [Any Comparable](src/AnyComparable.php): A comparable that may be freely compared to values of any other type.
 
 ### Comparator
@@ -74,7 +74,7 @@ than itself. **Parity** provides the following comparator implementations:
 
 The following process is used by `Parity::compare($A, $B)` to determine which comparison algorithm to use:
 
-Use `$A->compare(B)` if:
+Use `$A->compare($B)` if:
 
 1. `$A` is [Any Comparable](src/AnyComparable.php); or
 2. `$A` is [Restricted Comparable](src/RestrictedComparable.php) and `$A->canCompare($B)`; or
