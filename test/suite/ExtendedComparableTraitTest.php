@@ -2,14 +2,14 @@
 
 namespace Icecave\Parity;
 
-use Phake;
+use Eloquent\Phony\Phpunit\Phony;
 use PHPUnit\Framework\TestCase;
 
 class ExtendedComparableTraitTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->trait = Phake::partialMock(ExtendedComparableTraitUser::class);
+        $this->trait = Phony::partialMock(ExtendedComparableTraitUser::class)->get();
 
         $this->less  = -1;
         $this->same  = 0;

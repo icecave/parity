@@ -3,11 +3,11 @@
 namespace Icecave\Parity\Comparator;
 
 use Eloquent\Liberator\Liberator;
+use Eloquent\Phony\Phpunit\Phony;
 use Icecave\Parity\AnyComparable;
 use Icecave\Parity\RestrictedComparable;
 use Icecave\Parity\SelfComparable;
 use Icecave\Parity\SubClassComparable;
-use Phake;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -15,12 +15,10 @@ class ParityComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::mock(Comparator::class);
-        $this->comparator = new ParityComparator($this->fallbackComparator);
+        $this->fallbackComparator = Phony::mock(Comparator::class);
+        $this->fallbackComparator->compare->returns(-1);
 
-        Phake::when($this->fallbackComparator)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-1);
+        $this->comparator = new ParityComparator($this->fallbackComparator->get());
     }
 
     public function testInvoke()
@@ -37,99 +35,79 @@ class ParityComparatorTest extends TestCase
 
     public function testCompareInversion()
     {
-        $lhs = Phake::mock(AnyComparable::class);
+        $lhs = Phony::mock(AnyComparable::class);
+        $lhs->compare->returns(-1);
 
-        Phake::when($lhs)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-1);
-
-        $this->assertSame(-1, $this->comparator->compare($lhs, 10));
-        $this->assertSame(+1, $this->comparator->compare(10, $lhs));
+        $this->assertSame(-1, $this->comparator->compare($lhs->get(), 10));
+        $this->assertSame(+1, $this->comparator->compare(10, $lhs->get()));
     }
 
     public function testCompareWithFallback()
     {
         $result = $this->comparator->compare(10, 20);
 
-        Phake::verify($this->fallbackComparator)->compare(10, 20);
+        $this->fallbackComparator->compare->calledWith(10, 20);
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithAnyComparable()
     {
-        $comparable = Phake::mock(AnyComparable::class);
+        $comparable = Phony::mock(AnyComparable::class);
+        $comparable->compare->returns(-10);
 
-        Phake::when($comparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $result = $this->comparator->compare($comparable->get(), 10);
 
-        $result = $this->comparator->compare($comparable, 10);
-
-        Phake::verify($comparable)->compare(10);
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $comparable->compare->calledWith(10);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame($result, -10);
     }
 
     public function testCompareWithRestrictedComparable()
     {
-        $comparable = Phake::mock(RestrictedComparable::class);
+        $comparable = Phony::mock(RestrictedComparable::class);
+        $comparable->compare->returns(-10);
+        $comparable->canCompare->returns(true);
 
-        Phake::when($comparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $result = $this->comparator->compare($comparable->get(), 10);
 
-        Phake::when($comparable)
-            ->canCompare(Phake::anyParameters())
-            ->thenReturn(true);
-
-        $result = $this->comparator->compare($comparable, 10);
-
-        Phake::inOrder(
-            Phake::verify($comparable)->canCompare(10),
-            Phake::verify($comparable)->compare(10)
+        Phony::inOrder(
+            $comparable->canCompare->calledWith(10),
+            $comparable->compare->calledWith(10)
         );
 
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame($result, -10);
     }
 
     public function testCompareWithRestrictedComparableAndUnsupportedOperand()
     {
-        $comparable = Phake::mock(RestrictedComparable::class);
+        $comparable = Phony::mock(RestrictedComparable::class);
+        $comparable->compare->returns(-10);
+        $comparable->canCompare->returns(false);
 
-        Phake::when($comparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $result = $this->comparator->compare($comparable->get(), 10);
 
-        Phake::when($comparable)
-            ->canCompare(Phake::anyParameters())
-            ->thenReturn(false);
-
-        $result = $this->comparator->compare($comparable, 10);
-
-        Phake::verify($comparable)->canCompare(10);
-        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, 10);
+        $comparable->canCompare->calledWith(10);
+        $comparable->compare->never()->called();
+        $this->fallbackComparator->compare->calledWith($comparable, 10);
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithSelfComparable()
     {
-        $lhsComparable = Phake::mock(SelfComparable::class);
-        $rhsComparable = clone $lhsComparable;
+        $lhsComparable = Phony::mock(SelfComparable::class);
+        $lhsComparable->compare->returns(-10);
 
-        Phake::when($lhsComparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $rhsComparable = Phony::mock(SelfComparable::class);
 
-        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+        $result = $this->comparator->compare($lhsComparable->get(), $rhsComparable->get());
 
-        Phake::verify($lhsComparable)->compare($rhsComparable);
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $lhsComparable->compare->calledWith($rhsComparable);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame($result, -10);
     }
@@ -141,48 +119,46 @@ class ParityComparatorTest extends TestCase
 
         $result = $this->comparator->compare($lhsComparable, $rhsComparable);
 
-        Phake::verify($this->fallbackComparator)->compare($lhsComparable, $rhsComparable);
+        $this->fallbackComparator->compare->calledWith($lhsComparable, $rhsComparable);
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithSelfComparableAndNonObject()
     {
-        $comparable = Phake::mock(SelfComparable::class);
+        $comparable = Phony::mock(SelfComparable::class);
 
-        $result = $this->comparator->compare($comparable, 10);
+        $result = $this->comparator->compare($comparable->get(), 10);
 
-        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, 10);
+        $comparable->compare->never()->called();
+        $this->fallbackComparator->compare->calledWith($comparable, 10);
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithSelfComparableAndUnrelatedType()
     {
-        $comparable = Phake::mock(SelfComparable::class);
+        $comparable = Phony::mock(SelfComparable::class);
 
-        $result = $this->comparator->compare($comparable, new stdClass());
+        $result = $this->comparator->compare($comparable->get(), new stdClass());
 
-        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass());
+        $comparable->compare->never()->called();
+        $this->fallbackComparator->compare->calledWith($comparable, new stdClass());
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithSubClassComparable()
     {
-        $lhsComparable = Phake::mock(SubClassComparable::class);
-        $rhsComparable = clone $lhsComparable;
+        $lhsComparable = Phony::mock(SubClassComparable::class);
+        $lhsComparable->compare->returns(-10);
 
-        Phake::when($lhsComparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $rhsComparable = Phony::mock(SubClassComparable::class);
 
-        $result = $this->comparator->compare($lhsComparable, $rhsComparable);
+        $result = $this->comparator->compare($lhsComparable->get(), $rhsComparable->get());
 
-        Phake::verify($lhsComparable)->compare($rhsComparable);
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $lhsComparable->compare->calledWith($rhsComparable);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame($result, -10);
     }
@@ -194,49 +170,47 @@ class ParityComparatorTest extends TestCase
 
         $result = $this->comparator->compare($lhsComparable, $rhsComparable);
 
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame($result, -10);
     }
 
     public function testCompareWithSubClassComparableUsesCache()
     {
-        $lhsComparable = Phake::mock(SubClassComparable::class);
-        $rhsComparable = clone $lhsComparable;
+        $lhsComparable = Phony::mock(SubClassComparable::class);
+        $lhsComparable->compare->returns(-10);
 
-        Phake::when($lhsComparable)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-10);
+        $rhsComparable = Phony::mock(SubClassComparable::class);
 
-        $this->assertSame(-10, $this->comparator->compare($lhsComparable, $rhsComparable));
-        $this->assertSame(-10, $this->comparator->compare($lhsComparable, $rhsComparable));
+        $this->assertSame(-10, $this->comparator->compare($lhsComparable->get(), $rhsComparable->get()));
+        $this->assertSame(-10, $this->comparator->compare($lhsComparable->get(), $rhsComparable->get()));
 
         $this->assertSame(
-            Liberator::liberate($this->comparator)->compareImplementationClasses[get_class($lhsComparable)],
-            get_class($lhsComparable)
+            Liberator::liberate($this->comparator)->compareImplementationClasses[get_class($lhsComparable->get())],
+            get_class($lhsComparable->get())
         );
     }
 
     public function testCompareWithSubClassComparableAndNonObject()
     {
-        $comparable = Phake::mock(SubClassComparable::class);
+        $comparable = Phony::mock(SubClassComparable::class);
 
-        $result = $this->comparator->compare($comparable, 10);
+        $result = $this->comparator->compare($comparable->get(), 10);
 
-        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, 10);
+        $comparable->compare->never()->called();
+        $this->fallbackComparator->compare->calledWith($comparable, 10);
 
         $this->assertSame($result, -1);
     }
 
     public function testCompareWithSubClassComparableAndUnrelatedType()
     {
-        $comparable = Phake::mock(SubClassComparable::class);
+        $comparable = Phony::mock(SubClassComparable::class);
 
-        $result = $this->comparator->compare($comparable, new stdClass());
+        $result = $this->comparator->compare($comparable->get(), new stdClass());
 
-        Phake::verify($comparable, Phake::never())->compare(Phake::anyParameters());
-        Phake::verify($this->fallbackComparator)->compare($comparable, new stdClass());
+        $comparable->compare->never()->called();
+        $this->fallbackComparator->compare->calledWith($comparable, new stdClass());
 
         $this->assertSame($result, -1);
     }

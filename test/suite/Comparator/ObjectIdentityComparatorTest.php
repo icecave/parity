@@ -2,7 +2,7 @@
 
 namespace Icecave\Parity\Comparator;
 
-use Phake;
+use Eloquent\Phony\Phpunit\Phony;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -10,12 +10,10 @@ class ObjectIdentityComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::mock(Comparator::class);
-        $this->comparator = new ObjectIdentityComparator($this->fallbackComparator);
+        $this->fallbackComparator = Phony::mock(Comparator::class);
+        $this->fallbackComparator->compare->returns(-1);
 
-        Phake::when($this->fallbackComparator)
-            ->compare(Phake::anyParameters())
-            ->thenReturn(-1);
+        $this->comparator = new ObjectIdentityComparator($this->fallbackComparator->get());
     }
 
     public function testInvoke()
@@ -55,7 +53,7 @@ class ObjectIdentityComparatorTest extends TestCase
 
         $result = $this->comparator->compare($lhs, 20);
 
-        Phake::verify($this->fallbackComparator)->compare($lhs, 20);
+        $this->fallbackComparator->compare->calledWith($lhs, 20);
 
         $this->assertSame($result, -1);
     }
