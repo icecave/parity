@@ -3,9 +3,9 @@
 namespace Icecave\Parity\Comparator;
 
 use DateTime;
+use Eloquent\Phony\Phpunit\Phony;
 use Icecave\Parity\ChildObject;
 use Icecave\Parity\ParentObject;
-use Phake;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -13,8 +13,8 @@ class DeepComparatorTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->fallbackComparator = Phake::partialMock(PhpComparator::class);
-        $this->comparator = new DeepComparator($this->fallbackComparator);
+        $this->fallbackComparator = Phony::partialMock(PhpComparator::class);
+        $this->comparator = new DeepComparator($this->fallbackComparator->get());
     }
 
     public function testInvoke()
@@ -38,7 +38,7 @@ class DeepComparatorTest extends TestCase
         // Even though there are strings in the object, the fallback comparator
         // should never be used because we are comparing references to the same
         // object.
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame(0, $result);
     }
@@ -47,7 +47,7 @@ class DeepComparatorTest extends TestCase
     {
         $result = $this->comparator->compare([], []);
 
-        Phake::verifyNoInteraction($this->fallbackComparator);
+        $this->fallbackComparator->noInteraction();
 
         $this->assertSame(0, $result);
     }
@@ -201,7 +201,7 @@ class DeepComparatorTest extends TestCase
 
     public function testCompareWithObjectsWithRelaxedClassComparisons()
     {
-        $this->comparator = new DeepComparator($this->fallbackComparator, true);
+        $this->comparator = new DeepComparator($this->fallbackComparator->get(), true);
 
         $this->assertSame(
             0,
