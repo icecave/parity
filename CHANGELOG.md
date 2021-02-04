@@ -1,5 +1,15 @@
 # Parity Changelog
 
+### 3.0.1 (2021-02-04)
+
+Please note, as of this release this project intends to support only those
+versions of PHP that are listed under the "Currently Supported Versions" section
+of https://www.php.net/supported-versions.php. This means that support for older
+PHP versions may be dropped in minor or patch releases.
+
+- Drop support for PHP 7.2
+- Add support for PHP 8
+
 ### 3.0.0 (2020-08-25)
 
 This release contains several backwards compatibility breaks that will effect
