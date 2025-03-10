@@ -13,7 +13,7 @@ class NotComparableException extends LogicException
      * @param mixed          $rhs
      * @param Exception|null $previous
      */
-    public function __construct($lhs, $rhs, Exception $previous = null)
+    public function __construct($lhs, $rhs, ?Exception $previous = null)
     {
         parent::__construct(
             sprintf(
